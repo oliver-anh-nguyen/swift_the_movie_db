@@ -8,13 +8,26 @@
 
 import UIKit
 
+struct HomeSection {
+    static let recommendation = 0
+    static let category = 1
+    static let popular = 2
+    static let toprated = 3
+    static let upcoming = 4
+}
+
+let fullWidth: CGFloat = UIScreen.main.bounds.size.width
+
 class HomeViewController: UIViewController {
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: Cycle ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.setupUINavigation()
+        self.setupLayoutCollectionView()
     }
 
     // MARK: Setup UI
@@ -60,6 +73,15 @@ class HomeViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
+    private func setupLayoutCollectionView() {
+        self.collectionView.backgroundColor = .white
+        self.collectionView.register(HomeRecommendCollectionCell.self, self.collectionView)
+        self.collectionView.register(HomeCategoryCollectionCell.self, self.collectionView)
+        self.collectionView.register(HomeFilmCollectionCell.self, self.collectionView)
+        self.collectionView.registerHeader(HomeHeaderSection.self, self.collectionView)
+    }
+    
+    //MARK: Util function
     private func renderImgOriginal(named: String) -> UIImage {
         let imageView = UIImageView(image: UIImage(named: named))
         imageView.image = imageView.image!.withRenderingMode(.alwaysOriginal)
@@ -74,6 +96,100 @@ class HomeViewController: UIViewController {
     @objc private func searchClicked() {
     }
     
+}
+
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.section == HomeSection.recommendation {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HomeRecommendCollectionCell.self), for: indexPath) as? HomeRecommendCollectionCell else {
+                fatalError()
+            }
+            return cell
+        }
+        if indexPath.section == HomeSection.category {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HomeCategoryCollectionCell.self), for: indexPath) as? HomeCategoryCollectionCell else {
+                fatalError()
+            }
+            return cell
+        }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HomeFilmCollectionCell.self), for: indexPath) as? HomeFilmCollectionCell else {
+            fatalError()
+        }
+        if indexPath.section == HomeSection.popular {
+        }
+        if indexPath.section == HomeSection.toprated {
+        }
+        if indexPath.section == HomeSection.upcoming {
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                         withReuseIdentifier:String(describing: HomeHeaderSection.self),
+                                                                         for: indexPath) as! HomeHeaderSection
+        headerView.backgroundColor = .white
+        if indexPath.section == HomeSection.recommendation {
+            headerView.title.font = UIFont(name: font_helvetica, size: 20)
+            headerView.title.text = "RECOMMENDATIONS"
+        }
+        if indexPath.section == HomeSection.category {
+            headerView.title.text = "CATEGORY"
+        }
+        if indexPath.section == HomeSection.popular {
+            headerView.title.text = "POPULAR"
+        }
+        if indexPath.section == HomeSection.toprated {
+            headerView.title.text = "TOP RATED"
+        }
+        if indexPath.section == HomeSection.upcoming {
+            headerView.title.text = "UPCOMING"
+        }
+        return headerView
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == HomeSection.recommendation {
+            return CGSize(width: fullWidth, height: 50)
+        }
+        if section == HomeSection.category {
+            return CGSize(width: fullWidth, height: 30)
+        }
+        return CGSize(width: fullWidth, height: 30)
+    }
     
 }
 
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == HomeSection.recommendation {
+            return CGSize(width: fullWidth, height: 190)
+        }
+        if indexPath.section == HomeSection.category {
+            return CGSize(width: fullWidth, height: 106)
+        }
+        return CGSize(width: fullWidth, height: 270)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
+}
