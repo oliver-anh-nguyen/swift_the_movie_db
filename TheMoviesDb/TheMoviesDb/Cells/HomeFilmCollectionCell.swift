@@ -55,7 +55,14 @@ extension HomeFilmCollectionCell: UICollectionViewDataSource, UICollectionViewDe
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HomeFilmViewCell.self), for: indexPath) as? HomeFilmViewCell else {
             fatalError()
         }
+        cell.detailButton = {
+            print(indexPath.row)
+        }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("selected index \(indexPath.row)")
     }
     
 }

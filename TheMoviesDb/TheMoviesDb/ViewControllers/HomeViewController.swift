@@ -52,8 +52,8 @@ class HomeViewController: UIViewController {
         // create shadow below navigation bar
         self.navigationController?.navigationBar.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.23).cgColor
         self.navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0.0, height: 20.0)
-        self.navigationController?.navigationBar.layer.shadowRadius = 10.0
-        self.navigationController?.navigationBar.layer.shadowOpacity = 0.5
+        self.navigationController?.navigationBar.layer.shadowRadius = 20.0
+        self.navigationController?.navigationBar.layer.shadowOpacity = 0.6
         self.navigationController?.navigationBar.layer.masksToBounds = false
     }
     
@@ -143,19 +143,34 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         headerView.backgroundColor = .white
         if indexPath.section == HomeSection.recommendation {
             headerView.title.font = UIFont(name: font_helvetica, size: 20)
-            headerView.title.text = "RECOMMENDATIONS"
+            headerView.title.text = str_home_section_recommend
+            headerView.moreButton = {
+                print("see full recommendation list")
+            }
         }
         if indexPath.section == HomeSection.category {
-            headerView.title.text = "CATEGORY"
+            headerView.title.text = str_home_section_category
+            headerView.moreButton = {
+                print("see full category list")
+            }
         }
         if indexPath.section == HomeSection.popular {
-            headerView.title.text = "POPULAR"
+            headerView.title.text = str_home_section_popular
+            headerView.moreButton = {
+                print("see full popular list")
+            }
         }
         if indexPath.section == HomeSection.toprated {
-            headerView.title.text = "TOP RATED"
+            headerView.title.text = str_home_section_toprated
+            headerView.moreButton = {
+                print("see full top rated list")
+            }
         }
         if indexPath.section == HomeSection.upcoming {
-            headerView.title.text = "UPCOMING"
+            headerView.title.text = str_home_section_upcoming
+            headerView.moreButton = {
+                print("see full upcoming list")
+            }
         }
         return headerView
     }

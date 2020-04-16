@@ -19,6 +19,17 @@ class HomeCategoryViewCell: UICollectionViewCell {
         return img
     }()
     
+    public lazy var title: UILabel = {
+        let labelTitle = UILabel()
+        labelTitle.font = UIFont(name: font_helvetica, size: 16)
+        labelTitle.textColor = .white
+        labelTitle.textAlignment = .center
+        labelTitle.numberOfLines = 1
+        labelTitle.text = "Discover"
+        self.addSubview(labelTitle)
+        return labelTitle
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupLayout()
@@ -36,6 +47,10 @@ class HomeCategoryViewCell: UICollectionViewCell {
     private func setupLayout() {
         self.imgBg.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+        
+        self.title.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
         }
     }
     

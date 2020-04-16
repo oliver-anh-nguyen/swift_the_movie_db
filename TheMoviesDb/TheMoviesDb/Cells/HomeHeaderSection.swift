@@ -9,8 +9,6 @@
 import Foundation
 import UIKit
 
-public typealias MoreAction = () -> Void
-
 class HomeHeaderSection: UICollectionReusableView {
     
     public lazy var title: UILabel = {
@@ -30,7 +28,7 @@ class HomeHeaderSection: UICollectionReusableView {
         return btn
     }()
     
-    public var moreButton: MoreAction?
+    public var moreButton: ButtonAction?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,6 +40,9 @@ class HomeHeaderSection: UICollectionReusableView {
     }
     
     private func setupView() {
+        
+        self.btnMore.addTarget(self, action: #selector(clickedMore), for: .touchUpInside)
+        
         self.btnMore.snp.makeConstraints {
             $0.right.equalTo(-16)
             $0.size.equalTo(22)
@@ -53,6 +54,13 @@ class HomeHeaderSection: UICollectionReusableView {
             $0.right.equalTo(self.btnMore.snp.left).offset(10)
             $0.bottom.equalTo(0)
         }
+    }
+    
+    @objc func clickedMore() {
+        guard let moreButton = moreButton else{
+            return
+        }
+        moreButton()
     }
     
 }

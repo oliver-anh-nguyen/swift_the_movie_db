@@ -12,11 +12,20 @@ import SnapKit
 
 class HomeFilmViewCell: UICollectionViewCell {
     
+    public var detailButton: ButtonAction?
+    
     public lazy var imgBg: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "img_mock_toprated")
         self.addSubview(img)
         return img
+    }()
+    
+    public lazy var btnDetail: UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.setImage(UIImage(named: image_home_detail_more), for: .normal)
+        self.addSubview(btn)
+        return btn
     }()
     
     public lazy var title: UILabel = {
@@ -46,9 +55,17 @@ class HomeFilmViewCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
+        
         self.imgBg.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
             $0.height.equalTo(210)
+        }
+        
+        self.btnDetail.snp.makeConstraints {
+            $0.right.equalTo(0)
+            $0.top.equalTo(self.imgBg.snp.bottom).offset(10)
+            $0.height.equalTo(18)
+            $0.width.equalTo(4.5)
         }
         
         self.title.snp.makeConstraints {
@@ -56,8 +73,18 @@ class HomeFilmViewCell: UICollectionViewCell {
             $0.bottom.equalToSuperview()
             $0.height.equalTo(40)
             $0.left.equalTo(10)
-            $0.right.equalTo(-10)
+            $0.right.equalTo(self.btnDetail.snp.left).offset(-2)
         }
+        
+        self.btnDetail.addTarget(self, action: #selector(clickedDetail), for: .touchUpInside)
+        
+    }
+    
+    @objc func clickedDetail() {
+        guard let detailButton = detailButton else{
+            return
+        }
+        detailButton()
     }
     
 }
