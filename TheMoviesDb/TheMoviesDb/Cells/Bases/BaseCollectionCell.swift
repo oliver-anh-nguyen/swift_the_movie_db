@@ -1,15 +1,15 @@
 //
-//  HomeCategoryCollectionCell.swift
+//  BaseCollectionCell.swift
 //  TheMoviesDb
 //
-//  Created by admin on 4/16/20.
+//  Created by admin on 4/17/20.
 //  Copyright © 2020 admin. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class HomeCategoryCollectionCell: UICollectionViewCell {
+class BaseCollectionCell: UICollectionViewCell {
     
     var collectionView: UICollectionView!
     
@@ -22,48 +22,34 @@ class HomeCategoryCollectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupLayout() {
+    open func setupLayout() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 140, height: 77)
+        layout.itemSize = self.sizeCollection()
         
         self.collectionView = UICollectionView(frame: self.frame, collectionViewLayout: layout)
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
         self.collectionView.showsHorizontalScrollIndicator = false
         self.collectionView.backgroundColor = .white
-        self.collectionView.register(HomeCategoryViewCell.self, self.collectionView)
         self.addSubview(self.collectionView)
         self.collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        self.registerCell()
     }
     
+    open func sizeCollection() -> CGSize {
+        return .zero
+    }
+    
+    open func registerCell() {
+        
+    }
 }
 
-extension HomeCategoryCollectionCell: UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HomeCategoryViewCell.self), for: indexPath) as? HomeCategoryViewCell else {
-            fatalError()
-        }
-        return cell
-    }
-    
-}
-
-extension HomeCategoryCollectionCell: UICollectionViewDelegateFlowLayout {
+extension BaseCollectionCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: marginCell - 2, left: marginCell, bottom: marginCell, right: marginCell)
+        return UIEdgeInsets(top: marginTopCell, left: marginCell, bottom: marginCell, right: marginCell)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -71,4 +57,3 @@ extension HomeCategoryCollectionCell: UICollectionViewDelegateFlowLayout {
     }
     
 }
-

@@ -7,6 +7,7 @@ target 'TheMoviesDb' do
 
   # Pods for TheMoviesDb
   	pod 'SnapKit', '~> 5.0.0'
+    pod 'Cosmos', '~> 21.0'
   target 'TheMoviesDbTests' do
     inherit! :search_paths
     # Pods for testing

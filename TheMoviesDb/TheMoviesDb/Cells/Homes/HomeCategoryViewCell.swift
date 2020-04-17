@@ -21,7 +21,7 @@ class HomeCategoryViewCell: UICollectionViewCell {
     
     public lazy var title: UILabel = {
         let labelTitle = UILabel()
-        labelTitle.font = UIFont(name: font_helvetica, size: 16)
+        labelTitle.font = UIFont(name: font_helvetica_bold, size: 16)
         labelTitle.textColor = .white
         labelTitle.textAlignment = .center
         labelTitle.numberOfLines = 1

@@ -15,3 +15,4 @@ let str_home_section_toprated       = "TOP RATED"
 let str_home_section_upcoming       = "UPCOMING"
 
 
+let str_detail_section_rating      = "Your Rate"

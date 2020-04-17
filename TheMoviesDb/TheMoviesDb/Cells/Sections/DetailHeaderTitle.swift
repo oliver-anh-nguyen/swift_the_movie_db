@@ -1,19 +1,19 @@
 //
-//  HomeHeaderSection.swift
+//  DetailHeaderTitle.swift
 //  TheMoviesDb
 //
-//  Created by admin on 4/16/20.
+//  Created by admin on 4/17/20.
 //  Copyright © 2020 admin. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class HomeHeaderSection: UICollectionReusableView {
+class DetailHeaderTitle: UICollectionReusableView {
     
     public lazy var title: UILabel = {
         let labelTitle = UILabel()
-        labelTitle.font = UIFont(name: font_helvetica, size: 18)
+        labelTitle.font = UIFont(name: font_helvetica_bold, size: 18)
         labelTitle.textColor = UIColor(red: 0.242, green: 0.289, blue: 0.347, alpha: 1)
         labelTitle.textAlignment = .left
         labelTitle.adjustsFontSizeToFitWidth = true
@@ -28,11 +28,12 @@ class HomeHeaderSection: UICollectionReusableView {
         return btn
     }()
     
+    public var isHideButtonMore: Bool = true
     public var moreButton: ButtonAction?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
+        self.setupView()
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -40,19 +41,19 @@ class HomeHeaderSection: UICollectionReusableView {
     }
     
     private func setupView() {
-        
-        self.btnMore.addTarget(self, action: #selector(clickedMore), for: .touchUpInside)
-        
-        self.btnMore.snp.makeConstraints {
-            $0.right.equalTo(-16)
-            $0.size.equalTo(22)
-            $0.centerY.equalTo(self.title)
+        if !isHideButtonMore {
+            self.btnMore.addTarget(self, action: #selector(clickedMore), for: .touchUpInside)
+            self.btnMore.snp.makeConstraints {
+                $0.right.equalTo(-marginLeft)
+                $0.size.equalTo(22)
+                $0.centerY.equalTo(self.title)
+            }
         }
         
         self.title.snp.makeConstraints {
-            $0.left.equalTo(16)
-            $0.right.equalTo(self.btnMore.snp.left).offset(10)
-            $0.bottom.equalTo(0)
+            $0.left.equalTo(marginLeft)
+            $0.right.equalTo(32)
+            $0.centerY.equalToSuperview()
         }
     }
     

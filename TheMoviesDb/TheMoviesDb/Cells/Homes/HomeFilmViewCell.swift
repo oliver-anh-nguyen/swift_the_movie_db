@@ -30,7 +30,7 @@ class HomeFilmViewCell: UICollectionViewCell {
     
     public lazy var title: UILabel = {
         let labelTitle = UILabel()
-        labelTitle.font = UIFont(name: font_helvetica, size: 15)
+        labelTitle.font = UIFont(name: font_helvetica_bold, size: 15)
         labelTitle.textColor = UIColor(red: 0.243, green: 0.29, blue: 0.349, alpha: 1)
         labelTitle.textAlignment = .center
         labelTitle.numberOfLines = 0
@@ -71,7 +71,6 @@ class HomeFilmViewCell: UICollectionViewCell {
         self.title.snp.makeConstraints {
             $0.top.equalTo(self.imgBg.snp.bottom).offset(10)
             $0.bottom.equalToSuperview()
-            $0.height.equalTo(40)
             $0.left.equalTo(10)
             $0.right.equalTo(self.btnDetail.snp.left).offset(-2)
         }
