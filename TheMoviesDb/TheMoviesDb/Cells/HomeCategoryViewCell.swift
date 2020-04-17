@@ -52,6 +52,8 @@ class HomeCategoryViewCell: UICollectionViewCell {
         self.title.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
         }
+        
+        self.imgBg.normalShadow()
     }
     
 }

@@ -77,7 +77,7 @@ class HomeFilmViewCell: UICollectionViewCell {
         }
         
         self.btnDetail.addTarget(self, action: #selector(clickedDetail), for: .touchUpInside)
-        
+        self.imgBg.normalShadow()
     }
     
     @objc func clickedDetail() {

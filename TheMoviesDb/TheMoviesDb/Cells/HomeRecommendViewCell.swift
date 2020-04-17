@@ -37,6 +37,8 @@ class HomeRecommendViewCell: UICollectionViewCell {
         self.imgBg.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        self.imgBg.normalShadow()
     }
     
 }
