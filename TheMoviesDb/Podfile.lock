@@ -1,20 +1,24 @@
 PODS:
   - Cosmos (21.0.0)
   - SnapKit (5.0.1)
+  - TagListView (1.4.0)
 
 DEPENDENCIES:
   - Cosmos (~> 21.0)
   - SnapKit (~> 5.0.0)
+  - TagListView (~> 1.0)
 
 SPEC REPOS:
   trunk:
     - Cosmos
     - SnapKit
+    - TagListView
 
 SPEC CHECKSUMS:
   Cosmos: 3dfb6e4ba48bd48b8c9aa2a77048ae11ed114f96
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  TagListView: 987b0bdbb16cd9d9e7c0e2ec32aff37ecba8b173
 
-PODFILE CHECKSUM: 0411644b5945e7140e014b65386e878a685b6229
+PODFILE CHECKSUM: 63e5a9980a8d72a9a2ffd30ac965fa8d46ab9936
 
 COCOAPODS: 1.8.4

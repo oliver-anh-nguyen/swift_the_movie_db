@@ -12,14 +12,14 @@ import SnapKit
 
 class HomeCategoryViewCell: UICollectionViewCell {
     
-    public lazy var imgBg: UIImageView = {
+    private lazy var imgBg: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "img_mock_category")
         self.addSubview(img)
         return img
     }()
     
-    public lazy var title: UILabel = {
+    private lazy var title: UILabel = {
         let labelTitle = UILabel()
         labelTitle.font = UIFont(name: font_helvetica_bold, size: 16)
         labelTitle.textColor = .white

@@ -20,9 +20,10 @@ struct HomeSection {
 struct DetailSection {
     static let info = 0
     static let rating = 1
-    static let popular = 2
-    static let toprated = 3
-    static let upcoming = 4
+    static let series = 2
+    static let video = 3
+    static let comment = 4
+    static let recommend = 5
 }
 
 public func heightStatusBar() -> CGFloat {

@@ -16,3 +16,8 @@ let str_home_section_upcoming       = "UPCOMING"
 
 
 let str_detail_section_rating      = "Your Rate"
+let str_detail_section_series      = "Series Cast"
+let str_detail_section_video       = "Video"
+let str_detail_section_comment     = "Comments"
+let str_detail_section_recomend    = "Recomendations"
+let str_detail_button_comment      = "WRITE A COMMENT"

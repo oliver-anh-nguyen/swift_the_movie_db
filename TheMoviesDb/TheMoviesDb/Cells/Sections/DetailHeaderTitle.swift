@@ -28,7 +28,6 @@ class DetailHeaderTitle: UICollectionReusableView {
         return btn
     }()
     
-    public var isHideButtonMore: Bool = true
     public var moreButton: ButtonAction?
     
     public override init(frame: CGRect) {
@@ -36,18 +35,22 @@ class DetailHeaderTitle: UICollectionReusableView {
         self.setupView()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.btnMore.isHidden = true
+        self.title.text = ""
+    }
+    
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     private func setupView() {
-        if !isHideButtonMore {
-            self.btnMore.addTarget(self, action: #selector(clickedMore), for: .touchUpInside)
-            self.btnMore.snp.makeConstraints {
-                $0.right.equalTo(-marginLeft)
-                $0.size.equalTo(22)
-                $0.centerY.equalTo(self.title)
-            }
+        self.btnMore.addTarget(self, action: #selector(clickedMore), for: .touchUpInside)
+        self.btnMore.snp.makeConstraints {
+            $0.right.equalTo(-marginLeft)
+            $0.size.equalTo(22)
+            $0.centerY.equalTo(self.title)
         }
         
         self.title.snp.makeConstraints {

@@ -14,21 +14,21 @@ class HomeFilmViewCell: UICollectionViewCell {
     
     public var detailButton: ButtonAction?
     
-    public lazy var imgBg: UIImageView = {
+    private lazy var imgBg: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "img_mock_toprated")
         self.addSubview(img)
         return img
     }()
     
-    public lazy var btnDetail: UIButton = {
+    private lazy var btnDetail: UIButton = {
         let btn = UIButton(type: .custom)
         btn.setImage(UIImage(named: image_home_detail_more), for: .normal)
         self.addSubview(btn)
         return btn
     }()
     
-    public lazy var title: UILabel = {
+    private lazy var title: UILabel = {
         let labelTitle = UILabel()
         labelTitle.font = UIFont(name: font_helvetica_bold, size: 15)
         labelTitle.textColor = UIColor(red: 0.243, green: 0.29, blue: 0.349, alpha: 1)

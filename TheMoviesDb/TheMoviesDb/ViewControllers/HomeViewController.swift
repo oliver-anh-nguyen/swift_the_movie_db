@@ -143,29 +143,17 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     print("see full recommendation list")
                 }
             }
-            if indexPath.section == HomeSection.category {
+            else if indexPath.section == HomeSection.category {
                 headerView.title.text = str_home_section_category
-                headerView.moreButton = {
-                    print("see full category list")
-                }
             }
-            if indexPath.section == HomeSection.popular {
+            else if indexPath.section == HomeSection.popular {
                 headerView.title.text = str_home_section_popular
-                headerView.moreButton = {
-                    print("see full popular list")
-                }
             }
-            if indexPath.section == HomeSection.toprated {
+            else if indexPath.section == HomeSection.toprated {
                 headerView.title.text = str_home_section_toprated
-                headerView.moreButton = {
-                    print("see full top rated list")
-                }
             }
-            if indexPath.section == HomeSection.upcoming {
+            else if indexPath.section == HomeSection.upcoming {
                 headerView.title.text = str_home_section_upcoming
-                headerView.moreButton = {
-                    print("see full upcoming list")
-                }
             }
             return headerView
         default:

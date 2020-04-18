@@ -7,12 +7,11 @@
 //
 
 import Foundation
-import UIKit
 import SnapKit
 
 class HomeRecommendViewCell: UICollectionViewCell {
     
-    public lazy var imgBg: UIImageView = {
+    private lazy var imgBg: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "img_mock_recommend")
         self.addSubview(img)

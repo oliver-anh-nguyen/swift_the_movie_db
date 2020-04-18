@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import SnapKit
 
 class HomeRecommendCollectionCell: BaseCollectionCell {
     
@@ -44,3 +43,14 @@ extension HomeRecommendCollectionCell: UICollectionViewDataSource {
     
 }
 
+extension HomeRecommendCollectionCell: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: marginTopCell, left: marginCell, bottom: marginCell, right: marginCell)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return paddingCell
+    }
+    
+}

@@ -9,17 +9,19 @@
 import Foundation
 import UIKit
 import SnapKit
+import Cosmos
+import TagListView
 
 class DetailHeaderSection: UICollectionReusableView {
 
-    public lazy var imgBgTop: UIImageView = {
+    private lazy var imgBgTop: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "detail_bg_mockup")
         self.addSubview(img)
         return img
     }()
     
-    public lazy var imgAvatar: UIImageView = {
+    private lazy var imgAvatar: UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFill
         img.image = UIImage(named: "detail_mockup_avatar")
@@ -27,7 +29,7 @@ class DetailHeaderSection: UICollectionReusableView {
         return img
     }()
 
-    public lazy var title: UILabel = {
+    private lazy var title: UILabel = {
         let labelTitle = UILabel()
         labelTitle.font = UIFont(name: font_helvetica_bold, size: 24)
         labelTitle.textColor = UIColor(red: 0.243, green: 0.29, blue: 0.349, alpha: 1)
@@ -38,19 +40,18 @@ class DetailHeaderSection: UICollectionReusableView {
         return labelTitle
     }()
     
-    public lazy var desc: UILabel = {
+    private lazy var desc: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: font_helvetica, size: 18)
         label.textColor = UIColor(red: 0.243, green: 0.29, blue: 0.349, alpha: 1)
-        label.textAlignment = .left
         label.numberOfLines = 0
         label.text = "Một nhóm các siêu anh hùng được tập hợp trong các ấn phẩm khác của DC Comics, những người cùng nhau tham gia như một liên minh công lý. Những thành viên ban đầu là Aquaman…"
-        label.adjustsFontSizeToFitWidth = true
+        label.lineBreakMode = .byWordWrapping
         self.addSubview(label)
         return label
     }()
     
-    public lazy var btnMore: UIButton = {
+    private lazy var btnMore: UIButton = {
         let btn = UIButton(type: .custom)
         btn.setTitle("Read more", for: .normal)
         btn.setTitleColor(UIColor(red: 0, green: 0.478, blue: 0.851, alpha: 1), for: .normal)
@@ -59,11 +60,58 @@ class DetailHeaderSection: UICollectionReusableView {
         return btn
     }()
     
-    public lazy var btnFavorite: UIButton = {
+    private lazy var btnFavorite: UIButton = {
         let btn = UIButton(type: .custom)
         btn.setImage(UIImage(named: image_detail_favorite), for: .normal)
         self.addSubview(btn)
         return btn
+    }()
+    
+    private lazy var cosmosView: CosmosView = {
+        let cosmosView = CosmosView()
+        cosmosView.settings.fillMode = .full
+        cosmosView.settings.starSize = 15
+        cosmosView.settings.starMargin = 10
+        cosmosView.rating = 4
+        cosmosView.settings.emptyImage = UIImage(named: image_detail_ic_star_empty)
+        cosmosView.settings.filledImage = UIImage(named: image_detail_ic_star_full)
+        self.addSubview(cosmosView)
+        return cosmosView
+    }()
+    
+    private lazy var lblRating: UILabel = {
+        let labelTitle = UILabel()
+        labelTitle.font = UIFont(name: font_helvetica_bold, size: 18)
+        labelTitle.textColor = UIColor(red: 0.945, green: 0.792, blue: 0.137, alpha: 1)
+        labelTitle.textAlignment = .center
+        labelTitle.text = "4.0"
+        self.addSubview(labelTitle)
+        return labelTitle
+    }()
+    
+    private lazy var lblTime: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: font_helvetica, size: 14)
+        label.textColor = UIColor(red: 0.243, green: 0.29, blue: 0.349, alpha: 1)
+        label.text = "December 2018"
+        self.addSubview(label)
+        return label
+    }()
+    
+    private lazy var tagList: TagListView = {
+        let tagListView = TagListView()
+        tagListView.textFont = UIFont(name: font_helvetica, size: 12) ?? UIFont.systemFont(ofSize: 12)
+        tagListView.textColor = .white
+        tagListView.tagBackgroundColor = UIColor(red: 0, green: 0.478, blue: 0.851, alpha: 1)
+        tagListView.addTags(["US", "Action"])
+        tagListView.alignment = .left
+        tagListView.cornerRadius = 8.0
+        tagListView.paddingX = 10.0
+        tagListView.paddingY = 4
+        tagListView.marginX = 10
+        tagListView.delegate = self
+        self.addSubview(tagListView)
+        return tagListView
     }()
     
     public override init(frame: CGRect) {
@@ -88,15 +136,17 @@ class DetailHeaderSection: UICollectionReusableView {
             $0.width.equalTo(120)
             $0.top.equalTo(self.imgBgTop.snp.bottom).offset(-70)
         }
-        
+        self.imgAvatar.normalShadow()
         self.title.snp.makeConstraints {
-            $0.left.right.equalTo(marginLeft)
+            $0.left.equalTo(marginLeft)
+            $0.right.equalTo(-marginLeft)
             $0.top.equalTo(self.imgAvatar.snp.bottom).offset(marginLeft)
             $0.height.equalTo(33)
         }
         
         self.desc.snp.makeConstraints {
-            $0.left.right.equalTo(marginLeft)
+            $0.left.equalTo(marginLeft)
+            $0.right.equalTo(-marginLeft)
             $0.top.equalTo(self.title.snp.bottom).offset(4)
             $0.height.equalTo(120)
         }
@@ -113,5 +163,39 @@ class DetailHeaderSection: UICollectionReusableView {
             $0.top.equalTo(self.desc.snp.bottom).offset(56)
             $0.centerX.equalTo(self.imgBgTop)
         }
+        
+        self.lblRating.snp.makeConstraints {
+            $0.left.equalTo(self.imgAvatar.snp.right).offset(10)
+            $0.top.equalTo(self.imgBgTop.snp.bottom).offset(4)
+            $0.size.equalTo(26)
+        }
+        
+        self.cosmosView.snp.makeConstraints {
+            $0.left.equalTo(self.lblRating.snp.right).offset(10)
+            $0.centerY.equalTo(self.lblRating)
+            $0.height.equalTo(15)
+            $0.width.equalTo(115)
+        }
+        
+        self.lblTime.snp.makeConstraints {
+            $0.left.equalTo(self.lblRating)
+            $0.right.equalTo(-marginLeft)
+            $0.height.equalTo(16)
+            $0.top.equalTo(self.lblRating.snp.bottom).offset(6)
+        }
+        
+        self.tagList.snp.makeConstraints {
+            $0.left.equalTo(self.lblRating)
+            $0.right.equalTo(-marginLeft)
+            $0.bottom.equalTo(self.imgAvatar.snp.bottom)
+            $0.top.equalTo(self.lblTime.snp.bottom).offset(9)
+        }
+    }
+    
+}
+
+extension DetailHeaderSection: TagListViewDelegate {
+    func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
+        print("Tag pressed: \(title), \(sender)")
     }
 }
