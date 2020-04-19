@@ -8,39 +8,64 @@
 
 import Foundation
 
-class MovieListViewViewModel {
+import RxSwift
+import RxCocoa
 
-    private let movieService: MovieService
-    private var movies = [Movie]()
-    private var error = ""
-    private var isFetching = false
+class MovieListViewViewModel {
     
-    init(enpoint: Endpoint, movieService: MovieService) {
+    private let movieService: MovieService
+    private let disposeBag = DisposeBag()
+    
+    init(endpoint: Endpoint, movieService: MovieService) {
         self.movieService = movieService
+        self.fetchMovies(endpoint: endpoint)
+    }
+    
+    private let _movies = BehaviorRelay<[Movie]>(value: [])
+    private let _isFetching = BehaviorRelay<Bool>(value: false)
+    private let _error = BehaviorRelay<String?>(value: nil)
+    
+    var isFetching: Driver<Bool> {
+        return _isFetching.asDriver()
+    }
+    
+    var movies: Driver<[Movie]> {
+        return _movies.asDriver()
+    }
+    
+    var error: Driver<String?> {
+        return _error.asDriver()
+    }
+    
+    var hasError: Bool {
+        return _error.value != nil
     }
     
     var numberOfMovies: Int {
-        return movies.count
+        return _movies.value.count
     }
     
     func viewModelForMovie(at index: Int) -> MovieViewViewModel? {
-        guard index < movies.count else {
+        guard index < _movies.value.count else {
             return nil
         }
-        return MovieViewViewModel(movie: movies[index])
+        return MovieViewViewModel(movie: _movies.value[index])
     }
     
     private func fetchMovies(endpoint: Endpoint) {
-        self.movies.removeAll()
-        self.isFetching = true
-        self.movieService.fetchMovies(from: endpoint, params: nil, successHandler: {[weak self] (response) in
-            self?.isFetching = false
-            self?.movies = response.results
+        self._movies.accept([])
+        self._isFetching.accept(true)
+        self._error.accept(nil)
+        
+        movieService.fetchMovies(from: endpoint, params: nil, successHandler: {[weak self] (response) in
+            self?._isFetching.accept(false)
+            self?._movies.accept(response.results)
             
         }) { [weak self] (error) in
-            self?.isFetching = false
-            self?.error = error.localizedDescription
+            self?._isFetching.accept(false)
+            self?._error.accept(error.localizedDescription)
         }
     }
     
 }
+

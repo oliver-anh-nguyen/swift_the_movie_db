@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import Nuke
 
 class HomeFilmViewCell: UICollectionViewCell {
     
@@ -16,7 +17,6 @@ class HomeFilmViewCell: UICollectionViewCell {
     
     private lazy var imgBg: UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "img_mock_toprated")
         self.addSubview(img)
         return img
     }()
@@ -35,7 +35,6 @@ class HomeFilmViewCell: UICollectionViewCell {
         labelTitle.textAlignment = .center
         labelTitle.numberOfLines = 0
         labelTitle.lineBreakMode = .byWordWrapping
-        labelTitle.text = "Beauty and \nthe Beast"
         self.addSubview(labelTitle)
         return labelTitle
     }()
@@ -84,6 +83,17 @@ class HomeFilmViewCell: UICollectionViewCell {
             return
         }
         detailButton()
+    }
+    
+    func configure(viewModel: MovieViewViewModel) {
+        self.title.text = viewModel.title
+        Nuke.loadImage(
+            with: viewModel.posterURL,
+            options: ImageLoadingOptions(
+                transition: .fadeIn(duration: 0.33)
+            ),
+            into: self.imgBg
+        )
     }
     
 }

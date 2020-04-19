@@ -24,8 +24,8 @@ protocol MovieService {
 
 public enum Endpoint: String, CustomStringConvertible, CaseIterable {
     case nowPlaying = "now_playing"
-    case upcoming
-    case popular
+    case upcoming = "upcoming"
+    case popular = "popular"
     case topRated = "top_rated"
     
     public var description: String {

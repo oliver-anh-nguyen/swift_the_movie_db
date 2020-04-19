@@ -12,8 +12,6 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var movieListViewViewModel: MovieListViewViewModel!
-    
     // MARK: Cycle ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +70,9 @@ class HomeViewController: UIViewController {
         self.collectionView.backgroundColor = .white
         self.collectionView.register(HomeRecommendCollectionCell.self, self.collectionView)
         self.collectionView.register(HomeCategoryCollectionCell.self, self.collectionView)
-        self.collectionView.register(HomeFilmCollectionCell.self, self.collectionView)
+        self.collectionView.register(HomePopularCollectionCell.self, self.collectionView)
+        self.collectionView.register(HomeTopRatedCollectionCell.self, self.collectionView)
+        self.collectionView.register(HomeUpcomingCollectionCell.self, self.collectionView)
         self.collectionView.registerHeader(HomeHeaderSection.self, self.collectionView)
     }
     
@@ -116,14 +116,21 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             }
             return cell
         }
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HomeFilmCollectionCell.self), for: indexPath) as? HomeFilmCollectionCell else {
-            fatalError()
-        }
         if indexPath.section == HomeSection.popular {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HomePopularCollectionCell.self), for: indexPath) as? HomePopularCollectionCell else {
+                fatalError()
+            }
+            return cell
         }
         if indexPath.section == HomeSection.toprated {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HomeTopRatedCollectionCell.self), for: indexPath) as? HomeTopRatedCollectionCell else {
+                fatalError()
+            }
+
+            return cell
         }
-        if indexPath.section == HomeSection.upcoming {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HomeUpcomingCollectionCell.self), for: indexPath) as? HomeUpcomingCollectionCell else {
+            fatalError()
         }
         return cell
     }
