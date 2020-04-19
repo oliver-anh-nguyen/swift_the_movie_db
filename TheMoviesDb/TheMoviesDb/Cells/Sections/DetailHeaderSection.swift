@@ -12,7 +12,14 @@ import SnapKit
 import Cosmos
 import TagListView
 
+@objc protocol DetailHeaderSectionDelegate {
+    func didPressReadMore(sender:DetailHeaderSection, height: CGFloat)
+}
+
 class DetailHeaderSection: UICollectionReusableView {
+    
+    weak var delegate:DetailHeaderSectionDelegate?
+    var expandingState = false
 
     private lazy var imgBgTop: UIImageView = {
         let img = UIImageView()
@@ -45,8 +52,8 @@ class DetailHeaderSection: UICollectionReusableView {
         label.font = UIFont(name: font_helvetica, size: 18)
         label.textColor = UIColor(red: 0.243, green: 0.29, blue: 0.349, alpha: 1)
         label.numberOfLines = 0
-        label.text = "Một nhóm các siêu anh hùng được tập hợp trong các ấn phẩm khác của DC Comics, những người cùng nhau tham gia như một liên minh công lý. Những thành viên ban đầu là Aquaman…"
-        label.lineBreakMode = .byWordWrapping
+        label.text = "Một nhóm các siêu anh hùng được tập hợp trong các ấn phẩm khác của DC Comics, những người cùng nhau tham gia như một liên minh công lý. Những thành viên ban đầu là Aquaman… Một nhóm các siêu anh hùng được tập hợp trong các ấn phẩm khác của DC Comics, những người cùng nhau tham gia như một liên minh công lý. Những thành viên ban đầu là Aquaman… Một nhóm các siêu anh hùng được tập hợp trong các ấn phẩm khác của DC Comics, những người cùng nhau tham gia như một liên minh công lý. Những thành viên ban đầu là Aquaman… Một nhóm các siêu anh hùng được tập hợp trong các ấn phẩm khác của DC Comics, những người cùng nhau tham gia như một liên minh công lý. Những thành viên ban đầu là Aquaman. The end."
+        label.lineBreakMode = .byTruncatingTail
         self.addSubview(label)
         return label
     }()
@@ -56,6 +63,7 @@ class DetailHeaderSection: UICollectionReusableView {
         btn.setTitle("Read more", for: .normal)
         btn.setTitleColor(UIColor(red: 0, green: 0.478, blue: 0.851, alpha: 1), for: .normal)
         btn.titleLabel?.font = UIFont(name: font_helvetica, size: 14)
+        btn.addTarget(self, action: #selector(readMore), for: .touchUpInside)
         self.addSubview(btn)
         return btn
     }()
@@ -192,6 +200,22 @@ class DetailHeaderSection: UICollectionReusableView {
         }
     }
     
+    @objc func readMore() {
+        self.expandingState = !self.expandingState
+        var height : CGFloat = 0
+        
+        if self.expandingState {
+            height = self.desc.text!.height(withConstrainedWidth: UIScreen.main.bounds.size.width - marginLeft * 2, font: self.desc.font)
+            self.btnMore.setTitle("Collapse", for: .normal)
+        } else {
+            height = 120
+            self.btnMore.setTitle("Read More", for: .normal)
+        }
+            self.desc.snp.updateConstraints { (constraint) in
+                constraint.height.equalTo(height)
+            }
+        delegate?.didPressReadMore(sender: self, height: height)
+    }
 }
 
 extension DetailHeaderSection: TagListViewDelegate {

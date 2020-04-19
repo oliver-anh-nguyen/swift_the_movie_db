@@ -13,6 +13,7 @@ import SnapKit
 class DetailViewController: UIViewController {
     
     private var collectionView: UICollectionView!
+    var heightLabelReadMore : CGFloat = 120.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,6 +136,7 @@ extension DetailViewController: UICollectionViewDataSource {
                         fatalError("Invalid view type")
                 }
                 headerView.backgroundColor = .white
+                headerView.delegate = self
                 return headerView
             }
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: DetailHeaderTitle.self), for: indexPath) as? DetailHeaderTitle else {
@@ -202,9 +204,18 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == DetailSection.info {
-            return CGSize(width: fullWidth, height: 379 + 120 + 170)
+            return CGSize(width: fullWidth, height: 379 + heightLabelReadMore + 170)
         }
         return CGSize(width: fullWidth, height: 48)
         
+    }
+}
+
+extension DetailViewController : DetailHeaderSectionDelegate {
+    func didPressReadMore(sender: DetailHeaderSection, height: CGFloat) {
+        self.heightLabelReadMore = height
+        self.collectionView.performBatchUpdates({
+            self.collectionView.reloadData()
+        }, completion: nil)
     }
 }
