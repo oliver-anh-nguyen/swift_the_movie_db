@@ -12,9 +12,8 @@ import SnapKit
 
 class HomeCategoryViewCell: UICollectionViewCell {
     
-    private lazy var imgBg: UIImageView = {
+    public lazy var imgBg: UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "img_mock_category")
         self.addSubview(img)
         return img
     }()
@@ -25,7 +24,6 @@ class HomeCategoryViewCell: UICollectionViewCell {
         labelTitle.textColor = .white
         labelTitle.textAlignment = .center
         labelTitle.numberOfLines = 1
-        labelTitle.text = "Discover"
         self.addSubview(labelTitle)
         return labelTitle
     }()
@@ -37,7 +35,6 @@ class HomeCategoryViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        //self.imgBg.image = UIImage(named: "")
     }
     
     required init?(coder: NSCoder) {
@@ -54,6 +51,10 @@ class HomeCategoryViewCell: UICollectionViewCell {
         }
         
         self.imgBg.normalShadow()
+    }
+    
+    func configure(viewModel: GenreViewViewModel) {
+        self.title.text = viewModel.title
     }
     
 }

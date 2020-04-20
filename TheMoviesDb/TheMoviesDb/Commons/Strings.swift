@@ -23,6 +23,9 @@ let str_detail_section_comment     = "Comments"
 let str_detail_section_recomend    = "Recommendations"
 let str_detail_button_comment      = "WRITE A COMMENT"
 
+let str_btn_read_more              = "Read more"
+let str_btn_collapse               = "Collapse"
+
 extension String {
     func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)

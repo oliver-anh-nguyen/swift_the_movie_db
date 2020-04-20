@@ -9,15 +9,45 @@
 import Foundation
 import UIKit
 import SnapKit
+import RxCocoa
+import RxSwift
 
 class DetailViewController: UIViewController {
     
     private var collectionView: UICollectionView!
     var heightLabelReadMore : CGFloat = 120.0
+    var viewModel: MovieViewViewModel!
+    
+    private var movieDetailViewViewModel: MovieDetailViewModel!
+    private let disposeBag = DisposeBag()
+    
+    // MARK: API
+    private func getDetailMovie() {
+        movieDetailViewViewModel = MovieDetailViewModel(idMovie: self.viewModel.idMovie
+            , movieService: MovieStore.shared)
+        
+        movieDetailViewViewModel.movie.drive(onNext: {[weak self] (_) in
+            self?.collectionView.reloadData()
+        }).disposed(by: disposeBag)
+        
+        movieDetailViewViewModel.error.drive(onNext: {(error) in
+            print(error?.description ?? "")
+        }).disposed(by: disposeBag)
+    }
+    
+    init(viewModel: MovieViewViewModel?) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupLayout()
+        self.getDetailMovie()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -136,6 +166,10 @@ extension DetailViewController: UICollectionViewDataSource {
                         fatalError("Invalid view type")
                 }
                 headerView.backgroundColor = .white
+                headerView.configure(viewModel: self.viewModel)
+                if let model = movieDetailViewViewModel.viewModel() {
+                    headerView.addGenre(arr: model.genres)
+                }
                 headerView.delegate = self
                 return headerView
             }

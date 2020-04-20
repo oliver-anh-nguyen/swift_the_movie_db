@@ -8,6 +8,15 @@
 
 import Foundation
 
+public struct GenresResponse: Codable {
+    public let genres: [Genre]
+}
+
+public struct Genre: Codable {
+    public let id: Int
+    public let name: String
+}
+
 public struct MoviesResponse: Codable {
     public let page: Int
     public let totalResults: Int
@@ -24,25 +33,16 @@ public struct Movie: Codable {
     public let overview: String
     public let releaseDate: Date
     public let voteAverage: Double
-    public let voteCount: Int
-    public let tagline: String?
     public let genres: [MovieGenre]?
     public let videos: MovieVideoResponse?
-    public let credits: MovieCreditResponse?
-    public let adult: Bool
-    public let runtime: Int?
+    public let credits: CastResponse?
     public var posterURL: URL {
-        return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? "")")!
+        return URL(string: "https://image.tmdb.org/t/p/w300\(posterPath ?? "")")!
     }
     
     public var backdropURL: URL {
-        return URL(string: "https://image.tmdb.org/t/p/original\(backdropPath ?? "")")!
+        return URL(string: "https://image.tmdb.org/t/p/w500\(backdropPath ?? "")")!
     }
-    
-    public var voteAveragePercentText: String {
-        return "\(Int(voteAverage * 10))%"
-    }
-    
 }
 
 public struct MovieGenre: Codable {
@@ -69,20 +69,12 @@ public struct MovieVideo: Codable {
     }
 }
 
-public struct MovieCreditResponse: Codable {
+public struct CastResponse: Codable {
     public let cast: [MovieCast]
-    public let crew: [MovieCrew]
 }
 
 public struct MovieCast: Codable {
-    public let character: String
     public let name: String
-}
-
-public struct MovieCrew: Codable {
-    public let id: Int
-    public let department: String
-    public let job: String
-    public let name: String
+    public let profilePath: String?
 }
 

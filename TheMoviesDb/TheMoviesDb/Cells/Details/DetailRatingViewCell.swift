@@ -41,7 +41,7 @@ class DetailRatingViewCell: UICollectionViewCell {
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = UIFont(name: font_helvetica_bold, size: 14)
         btn.backgroundColor = UIColor(red: 0, green: 0.478, blue: 0.851, alpha: 1)
-        btn.layer.cornerRadius = 6.0
+        btn.layer.cornerRadius = imgCornerRadius
         self.addSubview(btn)
         return btn
     }()

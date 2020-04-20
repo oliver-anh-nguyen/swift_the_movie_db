@@ -191,7 +191,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         if indexPath.section == HomeSection.category {
             return CGSize(width: fullWidth, height: 107)
         }
-        return CGSize(width: fullWidth, height: 270)
+        return CGSize(width: fullWidth, height: 290)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

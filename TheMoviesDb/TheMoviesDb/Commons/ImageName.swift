@@ -13,6 +13,8 @@ let image_home_navi_profile                 = "home_navi_profile"
 let image_home_navi_search                  = "home_navi_search"
 let image_home_section_more                 = "home_section_more"
 let image_home_detail_more                  = "home_detail_more"
+let image_home_category_1                   = "img_category_1"
+let image_home_category_2                   = "img_category_2"
 
 let image_detail_back                       = "detail_ic_back"
 let image_detail_favorite                   = "detail_btn_fav"

@@ -13,14 +13,16 @@ struct MovieViewViewModel {
     private var movie: Movie
     
     private static let dateFormatter: DateFormatter = {
-        $0.dateStyle = .medium
-        $0.timeStyle = .none
+        $0.dateFormat = "MMMM yyyy"
         return $0
     }(DateFormatter())
     
-    
     init(movie: Movie) {
         self.movie = movie
+    }
+    
+    var idMovie: Int {
+        return movie.id
     }
     
     var title: String {
@@ -35,12 +37,23 @@ struct MovieViewViewModel {
         return movie.posterURL
     }
     
+    var backdropURL: URL {
+        return movie.backdropURL
+    }
+    
     var releaseDate: String {
         return MovieViewViewModel.dateFormatter.string(from: movie.releaseDate)
     }
     
     var rating: Double {
-        return movie.voteAverage
+        return round(movie.voteAverage/2)
     }
     
+    var movieCast: [MovieCast] {
+        return movie.credits?.cast ?? []
+    }
+    
+    var genres: [MovieGenre] {
+        return movie.genres ?? []
+    }
 }

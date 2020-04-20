@@ -8,13 +8,21 @@
 
 import Foundation
 import SnapKit
+import Nuke
 
 class HomeRecommendViewCell: UICollectionViewCell {
     
+    private lazy var viewBg: UIView = {
+        let outerView = UIView()
+        self.addSubview(outerView)
+        return outerView
+    }()
+    
     private lazy var imgBg: UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "img_mock_recommend")
-        self.addSubview(img)
+        img.clipsToBounds = true
+        img.layer.cornerRadius = imgCornerRadius
+        self.viewBg.addSubview(img)
         return img
     }()
     
@@ -25,7 +33,6 @@ class HomeRecommendViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        //self.imgBg.image = UIImage(named: "")
     }
     
     required init?(coder: NSCoder) {
@@ -33,11 +40,23 @@ class HomeRecommendViewCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
+        self.viewBg.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        self.viewBg.viewShadow()
+        
         self.imgBg.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
-        self.imgBg.normalShadow()
     }
     
+    func configure(viewModel: MovieViewViewModel) {
+        Nuke.loadImage(
+            with: viewModel.backdropURL,
+            options: ImageLoadingOptions(
+                transition: .fadeIn(duration: 0.33)
+            ),
+            into: self.imgBg
+        )
+    }
 }

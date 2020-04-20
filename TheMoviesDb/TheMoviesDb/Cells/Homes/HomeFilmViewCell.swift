@@ -15,9 +15,17 @@ class HomeFilmViewCell: UICollectionViewCell {
     
     public var detailButton: ButtonAction?
     
+    private lazy var viewBg: UIView = {
+        let outerView = UIView()
+        self.addSubview(outerView)
+        return outerView
+    }()
+    
     private lazy var imgBg: UIImageView = {
         let img = UIImageView()
-        self.addSubview(img)
+        img.clipsToBounds = true
+        img.layer.cornerRadius = imgCornerRadius
+        self.viewBg.addSubview(img)
         return img
     }()
     
@@ -55,9 +63,14 @@ class HomeFilmViewCell: UICollectionViewCell {
     
     private func setupLayout() {
         
-        self.imgBg.snp.makeConstraints {
+        self.viewBg.snp.makeConstraints {
             $0.top.left.right.equalToSuperview()
             $0.height.equalTo(210)
+        }
+        self.viewBg.viewShadow()
+        
+        self.imgBg.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
         
         self.btnDetail.snp.makeConstraints {
@@ -71,11 +84,10 @@ class HomeFilmViewCell: UICollectionViewCell {
             $0.top.equalTo(self.imgBg.snp.bottom).offset(10)
             $0.bottom.equalToSuperview()
             $0.left.equalTo(10)
-            $0.right.equalTo(self.btnDetail.snp.left).offset(-2)
+            $0.right.equalTo(self.btnDetail.snp.left).offset(-5)
         }
         
         self.btnDetail.addTarget(self, action: #selector(clickedDetail), for: .touchUpInside)
-        self.imgBg.normalShadow()
     }
     
     @objc func clickedDetail() {

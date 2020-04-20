@@ -1,8 +1,8 @@
 //
-//  MovieListViewViewModel.swift
+//  GenreListViewViewModel.swift
 //  TheMoviesDb
 //
-//  Created by admin on 4/19/20.
+//  Created by admin on 4/20/20.
 //  Copyright © 2020 admin. All rights reserved.
 //
 
@@ -10,17 +10,17 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class MovieListViewViewModel {
+class GenreListViewViewModel {
     
     private let movieService: MovieService
     private let disposeBag = DisposeBag()
     
-    init(endpoint: Endpoint, movieService: MovieService) {
+    init(movieService: MovieService) {
         self.movieService = movieService
-        self.fetchMovies(endpoint: endpoint)
+        self.fetchGenres()
     }
     
-    private let _movies = BehaviorRelay<[Movie]>(value: [])
+    private let _genres = BehaviorRelay<[Genre]>(value: [])
     private let _isFetching = BehaviorRelay<Bool>(value: false)
     private let _error = BehaviorRelay<String?>(value: nil)
     
@@ -28,8 +28,8 @@ class MovieListViewViewModel {
         return _isFetching.asDriver()
     }
     
-    var movies: Driver<[Movie]> {
-        return _movies.asDriver()
+    var genres: Driver<[Genre]> {
+        return _genres.asDriver()
     }
     
     var error: Driver<String?> {
@@ -40,25 +40,25 @@ class MovieListViewViewModel {
         return _error.value != nil
     }
     
-    var numberOfMovies: Int {
-        return _movies.value.count
+    var numberOfGenres: Int {
+        return _genres.value.count
     }
     
-    func viewModelForMovie(at index: Int) -> MovieViewViewModel? {
-        guard index < _movies.value.count else {
+    func viewModelForMovie(at index: Int) -> GenreViewViewModel? {
+        guard index < _genres.value.count else {
             return nil
         }
-        return MovieViewViewModel(movie: _movies.value[index])
+        return GenreViewViewModel(genre: _genres.value[index])
     }
     
-    private func fetchMovies(endpoint: Endpoint) {
-        self._movies.accept([])
+    private func fetchGenres() {
+        self._genres.accept([])
         self._isFetching.accept(true)
         self._error.accept(nil)
         
-        movieService.fetchMovies(from: endpoint, params: nil, successHandler: {[weak self] (response) in
+        movieService.fetchGenre(successHandler: {[weak self] (response) in
             self?._isFetching.accept(false)
-            self?._movies.accept(response.results)
+            self?._genres.accept(response.genres)
             
         }) { [weak self] (error) in
             self?._isFetching.accept(false)
@@ -67,4 +67,3 @@ class MovieListViewViewModel {
     }
     
 }
-

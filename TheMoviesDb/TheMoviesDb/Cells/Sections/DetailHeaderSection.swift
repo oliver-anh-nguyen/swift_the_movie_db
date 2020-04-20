@@ -11,6 +11,7 @@ import UIKit
 import SnapKit
 import Cosmos
 import TagListView
+import Nuke
 
 @objc protocol DetailHeaderSectionDelegate {
     func didPressReadMore(sender:DetailHeaderSection, height: CGFloat)
@@ -18,21 +19,27 @@ import TagListView
 
 class DetailHeaderSection: UICollectionReusableView {
     
+    var viewModel: MovieViewViewModel!
     weak var delegate:DetailHeaderSectionDelegate?
     var expandingState = false
 
     private lazy var imgBgTop: UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "detail_bg_mockup")
         self.addSubview(img)
         return img
     }()
     
+    private lazy var viewBg: UIView = {
+        let outerView = UIView()
+        self.addSubview(outerView)
+        return outerView
+    }()
+    
     private lazy var imgAvatar: UIImageView = {
         let img = UIImageView()
-        img.contentMode = .scaleAspectFill
-        img.image = UIImage(named: "detail_mockup_avatar")
-        self.addSubview(img)
+        img.clipsToBounds = true
+        img.layer.cornerRadius = imgCornerRadius
+        self.viewBg.addSubview(img)
         return img
     }()
 
@@ -41,7 +48,6 @@ class DetailHeaderSection: UICollectionReusableView {
         labelTitle.font = UIFont(name: font_helvetica_bold, size: 24)
         labelTitle.textColor = UIColor(red: 0.243, green: 0.29, blue: 0.349, alpha: 1)
         labelTitle.textAlignment = .left
-        labelTitle.text = "Justice League"
         labelTitle.adjustsFontSizeToFitWidth = true
         self.addSubview(labelTitle)
         return labelTitle
@@ -52,15 +58,21 @@ class DetailHeaderSection: UICollectionReusableView {
         label.font = UIFont(name: font_helvetica, size: 18)
         label.textColor = UIColor(red: 0.243, green: 0.29, blue: 0.349, alpha: 1)
         label.numberOfLines = 0
-        label.text = "Một nhóm các siêu anh hùng được tập hợp trong các ấn phẩm khác của DC Comics, những người cùng nhau tham gia như một liên minh công lý. Những thành viên ban đầu là Aquaman… Một nhóm các siêu anh hùng được tập hợp trong các ấn phẩm khác của DC Comics, những người cùng nhau tham gia như một liên minh công lý. Những thành viên ban đầu là Aquaman… Một nhóm các siêu anh hùng được tập hợp trong các ấn phẩm khác của DC Comics, những người cùng nhau tham gia như một liên minh công lý. Những thành viên ban đầu là Aquaman… Một nhóm các siêu anh hùng được tập hợp trong các ấn phẩm khác của DC Comics, những người cùng nhau tham gia như một liên minh công lý. Những thành viên ban đầu là Aquaman. The end."
         label.lineBreakMode = .byTruncatingTail
         self.addSubview(label)
         return label
     }()
     
+    private lazy var btnPlay: UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.setImage(UIImage(named: image_detail_ic_play), for: .normal)
+        self.addSubview(btn)
+        return btn
+    }()
+    
     private lazy var btnMore: UIButton = {
         let btn = UIButton(type: .custom)
-        btn.setTitle("Read more", for: .normal)
+        btn.setTitle(str_btn_read_more, for: .normal)
         btn.setTitleColor(UIColor(red: 0, green: 0.478, blue: 0.851, alpha: 1), for: .normal)
         btn.titleLabel?.font = UIFont(name: font_helvetica, size: 14)
         btn.addTarget(self, action: #selector(readMore), for: .touchUpInside)
@@ -92,7 +104,6 @@ class DetailHeaderSection: UICollectionReusableView {
         labelTitle.font = UIFont(name: font_helvetica_bold, size: 18)
         labelTitle.textColor = UIColor(red: 0.945, green: 0.792, blue: 0.137, alpha: 1)
         labelTitle.textAlignment = .center
-        labelTitle.text = "4.0"
         self.addSubview(labelTitle)
         return labelTitle
     }()
@@ -101,7 +112,6 @@ class DetailHeaderSection: UICollectionReusableView {
         let label = UILabel()
         label.font = UIFont(name: font_helvetica, size: 14)
         label.textColor = UIColor(red: 0.243, green: 0.29, blue: 0.349, alpha: 1)
-        label.text = "December 2018"
         self.addSubview(label)
         return label
     }()
@@ -111,12 +121,12 @@ class DetailHeaderSection: UICollectionReusableView {
         tagListView.textFont = UIFont(name: font_helvetica, size: 12) ?? UIFont.systemFont(ofSize: 12)
         tagListView.textColor = .white
         tagListView.tagBackgroundColor = UIColor(red: 0, green: 0.478, blue: 0.851, alpha: 1)
-        tagListView.addTags(["US", "Action"])
         tagListView.alignment = .left
         tagListView.cornerRadius = 8.0
         tagListView.paddingX = 10.0
         tagListView.paddingY = 4
         tagListView.marginX = 10
+        tagListView.marginY = 10
         tagListView.delegate = self
         self.addSubview(tagListView)
         return tagListView
@@ -138,13 +148,23 @@ class DetailHeaderSection: UICollectionReusableView {
             $0.height.equalTo(heightBg)
         }
         
-        self.imgAvatar.snp.makeConstraints {
+        self.btnPlay.snp.makeConstraints {
+            $0.centerX.centerY.equalTo(self.imgBgTop)
+            $0.size.equalTo(54)
+        }
+    
+        self.viewBg.snp.makeConstraints {
             $0.left.equalTo(marginLeft)
             $0.height.equalTo(180)
             $0.width.equalTo(120)
             $0.top.equalTo(self.imgBgTop.snp.bottom).offset(-70)
         }
-        self.imgAvatar.normalShadow()
+        self.viewBg.viewShadow()
+        
+        self.imgAvatar.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         self.title.snp.makeConstraints {
             $0.left.equalTo(marginLeft)
             $0.right.equalTo(-marginLeft)
@@ -206,15 +226,46 @@ class DetailHeaderSection: UICollectionReusableView {
         
         if self.expandingState {
             height = self.desc.text!.height(withConstrainedWidth: UIScreen.main.bounds.size.width - marginLeft * 2, font: self.desc.font)
-            self.btnMore.setTitle("Collapse", for: .normal)
+            self.btnMore.setTitle(str_btn_collapse, for: .normal)
         } else {
             height = 120
-            self.btnMore.setTitle("Read More", for: .normal)
+            self.btnMore.setTitle(str_btn_read_more, for: .normal)
         }
             self.desc.snp.updateConstraints { (constraint) in
                 constraint.height.equalTo(height)
             }
         delegate?.didPressReadMore(sender: self, height: height)
+    }
+    
+    func configure(viewModel: MovieViewViewModel) {
+        Nuke.loadImage(
+            with: viewModel.backdropURL,
+            options: ImageLoadingOptions(
+                transition: .fadeIn(duration: 0.33)
+            ),
+            into: self.imgBgTop
+        )
+        
+        Nuke.loadImage(
+            with: viewModel.posterURL,
+            options: ImageLoadingOptions(
+                transition: .fadeIn(duration: 0.33)
+            ),
+            into: self.imgAvatar
+        )
+        
+        self.desc.text = viewModel.overview
+        self.title.text = viewModel.title
+        self.lblTime.text = viewModel.releaseDate
+        self.lblRating.text = "\(viewModel.rating)"
+        self.cosmosView.rating = viewModel.rating
+    }
+    
+    func addGenre(arr:[MovieGenre]) {
+        for i in 0..<arr.count {
+            let movie = arr[i] as MovieGenre
+            self.tagList.addTag(movie.name)
+        }
     }
 }
 
