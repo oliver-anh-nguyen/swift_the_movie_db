@@ -36,6 +36,7 @@ public struct Movie: Codable {
     public let genres: [MovieGenre]?
     public let videos: MovieVideoResponse?
     public let credits: CastResponse?
+    public let recommendations: MoviesResponse?
     public var posterURL: URL {
         return URL(string: "https://image.tmdb.org/t/p/w300\(posterPath ?? "")")!
     }
@@ -67,6 +68,10 @@ public struct MovieVideo: Codable {
         }
         return URL(string: "https://www.youtube.com/watch?v=\(key)")
     }
+    
+    public var backdropURL: URL {
+        return URL(string: "https://img.youtube.com/vi/\(key)/hqdefault.jpg")!
+    }
 }
 
 public struct CastResponse: Codable {
@@ -75,6 +80,10 @@ public struct CastResponse: Codable {
 
 public struct MovieCast: Codable {
     public let name: String
+    public let character: String
     public let profilePath: String?
+    public var profileURL: URL {
+        return URL(string: "https://image.tmdb.org/t/p/w300\(profilePath ?? "")")!
+    }
 }
 

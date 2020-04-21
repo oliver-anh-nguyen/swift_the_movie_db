@@ -8,13 +8,22 @@
 
 import Foundation
 import UIKit
+import Nuke
 
 class DetailSeriesCastViewCell: UICollectionViewCell {
     
+    private lazy var viewBg: UIView = {
+        let outerView = UIView()
+        self.addSubview(outerView)
+        return outerView
+    }()
+    
     private lazy var imgBg: UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "detail_mock_series")
-        self.addSubview(img)
+        img.image = UIImage(named: image_detail_avatar)
+        img.clipsToBounds = true
+        img.layer.cornerRadius = imgCornerRadius
+        self.viewBg.addSubview(img)
         return img
     }()
     
@@ -24,7 +33,6 @@ class DetailSeriesCastViewCell: UICollectionViewCell {
         labelTitle.textColor = UIColor(red: 0.29, green: 0.29, blue: 0.29, alpha: 1)
         labelTitle.textAlignment = .justified
         labelTitle.numberOfLines = 1
-        labelTitle.text = "Zack Snyder"
         self.addSubview(labelTitle)
         return labelTitle
     }()
@@ -35,7 +43,6 @@ class DetailSeriesCastViewCell: UICollectionViewCell {
         label.textColor = UIColor(red: 0.608, green: 0.608, blue: 0.608, alpha: 1)
         label.textAlignment = .justified
         label.numberOfLines = 1
-        label.text = "Director"
         self.addSubview(label)
         return label
     }()
@@ -56,14 +63,17 @@ class DetailSeriesCastViewCell: UICollectionViewCell {
     
     private func setupLayout() {
         
-        self.imgBg.snp.makeConstraints {
+        self.viewBg.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.width.equalTo(70)
             $0.height.equalTo(102)
             $0.top.equalTo(15)
         }
+        self.viewBg.viewShadow()
         
-        self.imgBg.normalShadow()
+        self.imgBg.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         
         self.title.snp.makeConstraints {
             $0.left.right.equalTo(self.imgBg)
@@ -76,6 +86,20 @@ class DetailSeriesCastViewCell: UICollectionViewCell {
             $0.top.equalTo(self.title.snp.bottom).offset(2)
             $0.height.equalTo(14)
         }
+    }
+    
+    func configure(viewModel: MovieCast) {
+        if viewModel.profilePath != nil {
+            Nuke.loadImage(
+                with: viewModel.profileURL,
+                options: ImageLoadingOptions(
+                    transition: .fadeIn(duration: 0.33)
+                ),
+                into: self.imgBg
+            )
+        }
+        self.title.text = viewModel.name
+        self.desc.text = viewModel.character
     }
     
 }

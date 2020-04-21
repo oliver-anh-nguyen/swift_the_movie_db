@@ -9,13 +9,21 @@
 import Foundation
 import UIKit
 import SnapKit
+import Nuke
 
 class DetailRecomendViewCell: UICollectionViewCell {
     
+    private lazy var viewBg: UIView = {
+        let outerView = UIView()
+        self.addSubview(outerView)
+        return outerView
+    }()
+    
     private lazy var imgBg: UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "detail_mockup_recomend")
-        self.addSubview(img)
+        img.clipsToBounds = true
+        img.layer.cornerRadius = imgCornerRadius
+        self.viewBg.addSubview(img)
         return img
     }()
     
@@ -26,7 +34,6 @@ class DetailRecomendViewCell: UICollectionViewCell {
         labelTitle.textAlignment = .center
         labelTitle.numberOfLines = 0
         labelTitle.lineBreakMode = .byWordWrapping
-        labelTitle.text = "Justice League"
         self.addSubview(labelTitle)
         return labelTitle
     }()
@@ -38,7 +45,6 @@ class DetailRecomendViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        //self.imgBg.image = UIImage(named: "")
     }
     
     required init?(coder: NSCoder) {
@@ -46,11 +52,16 @@ class DetailRecomendViewCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        
-        self.imgBg.snp.makeConstraints {
+
+        self.viewBg.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.top.equalTo(marginLeft)
             $0.height.equalTo(150)
+        }
+        self.viewBg.viewShadow()
+        
+        self.imgBg.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
         
         self.title.snp.makeConstraints {
@@ -58,8 +69,17 @@ class DetailRecomendViewCell: UICollectionViewCell {
             $0.left.right.equalToSuperview()
             $0.height.equalTo(32)
         }
-        
-        self.imgBg.normalShadow()
+
     }
 
+    func configure(viewModel: Movie) {
+        self.title.text = viewModel.title
+        Nuke.loadImage(
+            with: viewModel.posterURL,
+            options: ImageLoadingOptions(
+                transition: .fadeIn(duration: 0.33)
+            ),
+            into: self.imgBg
+        )
+    }
 }

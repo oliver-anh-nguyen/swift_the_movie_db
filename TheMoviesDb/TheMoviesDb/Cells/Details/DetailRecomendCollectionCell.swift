@@ -11,6 +11,8 @@ import UIKit
 
 class DetailRecomendCollectionCell: BaseCollectionCell {
     
+    var arr = [Movie]()
+    
     override func sizeCollection() -> CGSize {
         return size_detail_recommend
     }
@@ -26,13 +28,14 @@ class DetailRecomendCollectionCell: BaseCollectionCell {
 extension DetailRecomendCollectionCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return self.arr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: DetailRecomendViewCell.self), for: indexPath) as? DetailRecomendViewCell else {
             fatalError()
         }
+        cell.configure(viewModel: self.arr[indexPath.row])
         return cell
     }
     

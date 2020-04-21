@@ -54,7 +54,6 @@ class HomeFilmViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        //self.imgBg.image = UIImage(named: "")
     }
     
     required init?(coder: NSCoder) {

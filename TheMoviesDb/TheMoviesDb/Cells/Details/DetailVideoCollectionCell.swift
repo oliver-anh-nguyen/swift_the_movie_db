@@ -8,8 +8,11 @@
 
 import Foundation
 import UIKit
+import AVKit
 
 class DetailVideoCollectionCell: BaseCollectionCell {
+    
+    var arrVideos = [MovieVideo]()
     
     override func sizeCollection() -> CGSize {
         return size_detail_video
@@ -26,18 +29,25 @@ class DetailVideoCollectionCell: BaseCollectionCell {
 extension DetailVideoCollectionCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return self.arrVideos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: DetailVideoViewCell.self), for: indexPath) as? DetailVideoViewCell else {
             fatalError()
         }
+        cell.configure(viewModel: self.arrVideos[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let movie = self.arrVideos[indexPath.row]
+        let player = AVPlayer(url: movie.youtubeURL!)
+        let vc = AVPlayerViewController()
+        vc.player = player
+        UINavigationController.currentActiveNavigationController()?.topViewController?.present(vc, animated: true, completion: {
+            vc.player?.play()
+        })
     }
     
 }

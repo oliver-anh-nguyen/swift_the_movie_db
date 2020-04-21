@@ -11,6 +11,8 @@ import UIKit
 
 class DetailSeriesCastCollectionCell: BaseCollectionCell {
     
+    var arrCasts = [MovieCast]()
+    
     override func sizeCollection() -> CGSize {
         return size_detail_series
     }
@@ -26,13 +28,14 @@ class DetailSeriesCastCollectionCell: BaseCollectionCell {
 extension DetailSeriesCastCollectionCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return self.arrCasts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: DetailSeriesCastViewCell.self), for: indexPath) as? DetailSeriesCastViewCell else {
             fatalError()
         }
+        cell.configure(viewModel: self.arrCasts[indexPath.row])
         return cell
     }
     

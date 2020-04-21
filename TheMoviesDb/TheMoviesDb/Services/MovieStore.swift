@@ -117,7 +117,7 @@ public class MovieStore: MovieService {
     
     
     public func fetchDetailMovie(id: Int, successHandler: @escaping (_ response: Movie) -> Void, errorHandler: @escaping(_ error: Error) -> Void) {
-        guard let url = URL(string: "\(baseAPIURL)/movie/\(id)?api_key=\(apiKey)&append_to_response=videos,credits") else {
+        guard let url = URL(string: "\(baseAPIURL)/movie/\(id)?api_key=\(apiKey)&append_to_response=videos,credits,recommendations") else {
             handleError(errorHandler: errorHandler, error: MovieError.invalidEndpoint)
             return
         }

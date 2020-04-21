@@ -50,6 +50,11 @@ class DetailViewController: UIViewController {
         self.getDetailMovie()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.isHidden = false
@@ -133,11 +138,17 @@ extension DetailViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: DetailSeriesCastCollectionCell.self), for: indexPath) as? DetailSeriesCastCollectionCell else {
                 fatalError()
             }
+            if let model = movieDetailViewViewModel.viewModel() {
+                cell.arrCasts = model.movieCast
+            }
             return cell
         }
         if indexPath.section == DetailSection.video {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: DetailVideoCollectionCell.self), for: indexPath) as? DetailVideoCollectionCell else {
                 fatalError()
+            }
+            if let model = movieDetailViewViewModel.viewModel() {
+                cell.arrVideos = model.videos
             }
             return cell
         }
@@ -149,6 +160,9 @@ extension DetailViewController: UICollectionViewDataSource {
         }
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: DetailRecomendCollectionCell.self), for: indexPath) as? DetailRecomendCollectionCell else {
             fatalError()
+        }
+        if let model = movieDetailViewViewModel.viewModel() {
+            cell.arr = model.recommendations
         }
         return cell
     }

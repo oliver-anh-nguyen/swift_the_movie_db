@@ -262,6 +262,7 @@ class DetailHeaderSection: UICollectionReusableView {
     }
     
     func addGenre(arr:[MovieGenre]) {
+        self.tagList.removeAllTags()
         for i in 0..<arr.count {
             let movie = arr[i] as MovieGenre
             self.tagList.addTag(movie.name)

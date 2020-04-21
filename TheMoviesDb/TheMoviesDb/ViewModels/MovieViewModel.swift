@@ -56,4 +56,12 @@ struct MovieViewViewModel {
     var genres: [MovieGenre] {
         return movie.genres ?? []
     }
+    
+    var videos: [MovieVideo] {
+        return movie.videos?.results ?? []
+    }
+    
+    var recommendations: [Movie] {
+        return movie.recommendations?.results ?? []
+    }
 }

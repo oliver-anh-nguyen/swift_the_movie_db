@@ -9,19 +9,29 @@
 import Foundation
 import UIKit
 import SnapKit
+import Nuke
 
 class DetailVideoViewCell: UICollectionViewCell {
+    
+    private lazy var viewBg: UIView = {
+        let outerView = UIView()
+        self.addSubview(outerView)
+        return outerView
+    }()
     
     private lazy var imgBg: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "detail_mockup_video")
-        self.addSubview(img)
+        img.clipsToBounds = true
+        img.layer.cornerRadius = imgCornerRadius
+        self.viewBg.addSubview(img)
         return img
     }()
     
     private lazy var btnPlay: UIButton = {
         let btn = UIButton(type: .custom)
-        btn.setImage(UIImage(named: image_detail_ic_play), for: .normal)
+        btn.setImage(UIImage(named: image_detail_ic_play_white), for: .normal)
+        btn.isUserInteractionEnabled = false
         self.addSubview(btn)
         return btn
     }()
@@ -33,7 +43,6 @@ class DetailVideoViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        //self.imgBg.image = UIImage(named: "")
     }
     
     required init?(coder: NSCoder) {
@@ -41,18 +50,33 @@ class DetailVideoViewCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        self.imgBg.snp.makeConstraints {
+        
+        self.viewBg.snp.makeConstraints {
             $0.height.equalTo(120)
             $0.top.equalTo(marginLeft)
             $0.left.right.equalToSuperview()
         }
+        self.viewBg.viewShadow()
+        
+        self.imgBg.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         
         self.btnPlay.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
+            $0.centerX.centerY.equalTo(self.imgBg)
             $0.size.equalTo(40)
         }
         
-        self.imgBg.normalShadow()
+    }
+    
+    func configure(viewModel: MovieVideo) {
+        Nuke.loadImage(
+            with: viewModel.backdropURL,
+            options: ImageLoadingOptions(
+                transition: .fadeIn(duration: 0.33)
+            ),
+            into: self.imgBg
+        )
     }
     
 }

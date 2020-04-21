@@ -34,6 +34,7 @@ class DetailCommentCollectionCell: UICollectionViewCell {
         self.collectionView = UICollectionView(frame: self.frame, collectionViewLayout: layout)
         self.collectionView.showsVerticalScrollIndicator = false
         self.collectionView.backgroundColor = .white
+        self.collectionView.isScrollEnabled = false
         self.addSubview(self.collectionView)
         self.collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()

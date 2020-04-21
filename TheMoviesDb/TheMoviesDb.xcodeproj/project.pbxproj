@@ -308,6 +308,7 @@
 		84ED4D9F2449B75A00ACA2FD /* Bases */ = {
 			isa = PBXGroup;
 			children = (
+				84ED4DA02449B75A00ACA2FD /* BaseCollectionCell.swift */,
 			);
 			path = Bases;
 			sourceTree = "<group>";
@@ -326,7 +327,6 @@
 			isa = PBXGroup;
 			children = (
 				84A76888244AB08100241A73 /* DetailSeriesCastCollectionCell.swift */,
-				84ED4DA02449B75A00ACA2FD /* BaseCollectionCell.swift */,
 				845EFB9B244AF21F0010AF55 /* DetailVideoCollectionCell.swift */,
 				845EFBA3244AFBB70010AF55 /* DetailCommentCollectionCell.swift */,
 				845EFB9D244AF2560010AF55 /* DetailRecomendCollectionCell.swift */,

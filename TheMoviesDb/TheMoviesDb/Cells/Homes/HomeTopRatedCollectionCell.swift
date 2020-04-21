@@ -63,7 +63,10 @@ extension HomeTopRatedCollectionCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        if let viewModel = movieListViewViewModel.viewModelForMovie(at: indexPath.row) {
+            let detailView = DetailViewController(viewModel: viewModel)
+            UINavigationController.currentActiveNavigationController()?.pushViewController(detailView, animated: true)
+        }
     }
     
 }

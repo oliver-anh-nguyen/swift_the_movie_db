@@ -21,4 +21,7 @@ let image_detail_favorite                   = "detail_btn_fav"
 let image_detail_ic_star_empty              = "detail_ic_star_empty"
 let image_detail_ic_star_full               = "detail_ic_star_full"
 let image_detail_ic_play                    = "detail_ic_play"
+let image_detail_ic_play_white              = "detail_ic_play_white"
+
+let image_detail_avatar                     = "default_avatar"
 
