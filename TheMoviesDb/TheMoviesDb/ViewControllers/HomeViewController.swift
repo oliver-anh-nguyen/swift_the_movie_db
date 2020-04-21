@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+let loadingViewColor = UIColor(red: 0.3058823529, green: 0.8666666667, blue: 0.7843137255, alpha: 1)
+let pullRefreshColor = UIColor(red: 0.2235294118, green: 0.262745098, blue: 0.3490196078, alpha: 1)
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -33,6 +34,18 @@ class HomeViewController: UIViewController {
         
         // add search button to right navigation bar
         self.createRightBarButton()
+        
+        self.setupPullToRefresh()
+    }
+    
+    func setupPullToRefresh() {
+        let loadingView = DGElasticPullToRefreshLoadingViewCircle()
+        loadingView.tintColor = loadingViewColor
+        self.collectionView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
+            self?.collectionView.dg_stopLoading()
+            }, loadingView: loadingView)
+        self.collectionView.dg_setPullToRefreshFillColor(pullRefreshColor)
+        self.collectionView.dg_setPullToRefreshBackgroundColor(self.collectionView.backgroundColor!)
     }
     
     private func customNavigationBar() {

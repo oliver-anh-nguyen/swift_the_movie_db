@@ -35,6 +35,11 @@
 		84714FBA244809B80012F032 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84714FB8244809B80012F032 /* LaunchScreen.storyboard */; };
 		84714FC5244809B80012F032 /* TheMoviesDbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84714FC4244809B80012F032 /* TheMoviesDbTests.swift */; };
 		84714FD0244809B80012F032 /* TheMoviesDbUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84714FCF244809B80012F032 /* TheMoviesDbUITests.swift */; };
+		84769827244EEE0100878321 /* DGElasticPullToRefreshLoadingViewCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84769822244EEE0100878321 /* DGElasticPullToRefreshLoadingViewCircle.swift */; };
+		84769828244EEE0100878321 /* DGElasticPullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84769823244EEE0100878321 /* DGElasticPullToRefreshView.swift */; };
+		84769829244EEE0100878321 /* DGElasticPullToRefreshConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84769824244EEE0100878321 /* DGElasticPullToRefreshConstants.swift */; };
+		8476982A244EEE0100878321 /* DGElasticPullToRefreshExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84769825244EEE0100878321 /* DGElasticPullToRefreshExtensions.swift */; };
+		8476982B244EEE0100878321 /* DGElasticPullToRefreshLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84769826244EEE0100878321 /* DGElasticPullToRefreshLoadingView.swift */; };
 		8481F7E4244957F8001D9389 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8481F7E3244957F8001D9389 /* UIImageView+Extension.swift */; };
 		8481F7E624496FE0001D9389 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8481F7E524496FE0001D9389 /* DetailViewController.swift */; };
 		8481F7EA24498AE4001D9389 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8481F7E924498AE4001D9389 /* UINavigationController+Extension.swift */; };
@@ -112,6 +117,11 @@
 		84714FCB244809B80012F032 /* TheMoviesDbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheMoviesDbUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84714FCF244809B80012F032 /* TheMoviesDbUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMoviesDbUITests.swift; sourceTree = "<group>"; };
 		84714FD1244809B80012F032 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84769822244EEE0100878321 /* DGElasticPullToRefreshLoadingViewCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGElasticPullToRefreshLoadingViewCircle.swift; sourceTree = "<group>"; };
+		84769823244EEE0100878321 /* DGElasticPullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGElasticPullToRefreshView.swift; sourceTree = "<group>"; };
+		84769824244EEE0100878321 /* DGElasticPullToRefreshConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGElasticPullToRefreshConstants.swift; sourceTree = "<group>"; };
+		84769825244EEE0100878321 /* DGElasticPullToRefreshExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGElasticPullToRefreshExtensions.swift; sourceTree = "<group>"; };
+		84769826244EEE0100878321 /* DGElasticPullToRefreshLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGElasticPullToRefreshLoadingView.swift; sourceTree = "<group>"; };
 		8481F7E3244957F8001D9389 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		8481F7E524496FE0001D9389 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		8481F7E924498AE4001D9389 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
@@ -191,6 +201,7 @@
 		3EEA27DC2448AB960030B10C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84769820244EEE0100878321 /* Vendor */,
 				84714FB6244809B80012F032 /* Assets.xcassets */,
 				84714FBB244809B80012F032 /* Info.plist */,
 				3EEA27DD2448AB960030B10C /* AppDelegate.swift */,
@@ -288,6 +299,26 @@
 				84714FD1244809B80012F032 /* Info.plist */,
 			);
 			path = TheMoviesDbUITests;
+			sourceTree = "<group>";
+		};
+		84769820244EEE0100878321 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				84769821244EEE0100878321 /* DGElasticPullToRefresh */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		84769821244EEE0100878321 /* DGElasticPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				84769822244EEE0100878321 /* DGElasticPullToRefreshLoadingViewCircle.swift */,
+				84769823244EEE0100878321 /* DGElasticPullToRefreshView.swift */,
+				84769824244EEE0100878321 /* DGElasticPullToRefreshConstants.swift */,
+				84769825244EEE0100878321 /* DGElasticPullToRefreshExtensions.swift */,
+				84769826244EEE0100878321 /* DGElasticPullToRefreshLoadingView.swift */,
+			);
+			path = DGElasticPullToRefresh;
 			sourceTree = "<group>";
 		};
 		84ED4D982449B75A00ACA2FD /* Homes */ = {
@@ -622,13 +653,16 @@
 			files = (
 				84ED4DAE2449B75B00ACA2FD /* DetailHeaderSection.swift in Sources */,
 				8481F7E624496FE0001D9389 /* DetailViewController.swift in Sources */,
+				84769827244EEE0100878321 /* DGElasticPullToRefreshLoadingViewCircle.swift in Sources */,
 				8481F7EA24498AE4001D9389 /* UINavigationController+Extension.swift in Sources */,
 				3EEA27DF2448AB960030B10C /* AppDelegate.swift in Sources */,
 				84A76889244AB08100241A73 /* DetailSeriesCastCollectionCell.swift in Sources */,
 				845EFBA0244AF2670010AF55 /* DetailVideoViewCell.swift in Sources */,
 				84F63C8B244BFC750017A840 /* Movie.swift in Sources */,
+				84769829244EEE0100878321 /* DGElasticPullToRefreshConstants.swift in Sources */,
 				84ED4DAA2449B75B00ACA2FD /* HomeRecommendCollectionCell.swift in Sources */,
 				3ED3AA6C244CB9680044C3D2 /* HomeUpcomingCollectionCell.swift in Sources */,
+				84769828244EEE0100878321 /* DGElasticPullToRefreshView.swift in Sources */,
 				3EEA27DB2448AB810030B10C /* HomeViewController.swift in Sources */,
 				84ED4DAD2449B75B00ACA2FD /* HomeHeaderSection.swift in Sources */,
 				3EEA27E02448AB960030B10C /* SceneDelegate.swift in Sources */,
@@ -641,6 +675,7 @@
 				845EFBA4244AFBB70010AF55 /* DetailCommentCollectionCell.swift in Sources */,
 				84ED4DB32449C2CF00ACA2FD /* DetailRatingViewCell.swift in Sources */,
 				84ED4DAC2449B75B00ACA2FD /* BaseCollectionCell.swift in Sources */,
+				8476982A244EEE0100878321 /* DGElasticPullToRefreshExtensions.swift in Sources */,
 				84ED4DA92449B75B00ACA2FD /* HomeCategoryViewCell.swift in Sources */,
 				84ED4DA82449B75B00ACA2FD /* HomePopularCollectionCell.swift in Sources */,
 				3EEA27D62448A6C60030B10C /* Strings.swift in Sources */,
@@ -657,6 +692,7 @@
 				84ED4D932449946E00ACA2FD /* Utils.swift in Sources */,
 				84652D94244D8291001CF080 /* GenreListViewViewModel.swift in Sources */,
 				84ED4DAB2449B75B00ACA2FD /* HomeFilmViewCell.swift in Sources */,
+				8476982B244EEE0100878321 /* DGElasticPullToRefreshLoadingView.swift in Sources */,
 				84F63C98244C1F250017A840 /* MovieViewModel.swift in Sources */,
 				84601402244870FF0085583A /* UICollectionView+Extension.swift in Sources */,
 				845EFBA2244AF2750010AF55 /* DetailRecomendViewCell.swift in Sources */,
