@@ -12,9 +12,8 @@ Simple mobile application that displays a list of movies. The data will be retri
 
 Here is short GIF preview which demonstrates design and features of the App.
 
-<p align="center">
-	<img src="TheMoviesDb/TheMoviesDb/Screenshot/preview.gif" width="414" height="896" />
-</p>
+<img src="https://github.com/oliver-anh-nguyen/swift_the_movie_db/blob/master/TheMoviesDb/TheMoviesDb/Screenshot/preview_app.gif" width="414" height="896">
+
 
 **Run**
 
