@@ -12,6 +12,7 @@ target 'TheMoviesDb' do
     pod 'RxSwift'
     pod 'RxCocoa'
     pod 'Nuke'
+    pod 'YoutubeDirectLinkExtractor'
   target 'TheMoviesDbTests' do
     inherit! :search_paths
     # Pods for testing

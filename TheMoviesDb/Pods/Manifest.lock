@@ -9,6 +9,7 @@ PODS:
   - RxSwift (5.0.1)
   - SnapKit (5.0.1)
   - TagListView (1.4.0)
+  - YoutubeDirectLinkExtractor (0.3.1)
 
 DEPENDENCIES:
   - Cosmos (~> 21.0)
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - RxSwift
   - SnapKit (~> 5.0.0)
   - TagListView (~> 1.0)
+  - YoutubeDirectLinkExtractor
 
 SPEC REPOS:
   trunk:
@@ -27,6 +29,7 @@ SPEC REPOS:
     - RxSwift
     - SnapKit
     - TagListView
+    - YoutubeDirectLinkExtractor
 
 SPEC CHECKSUMS:
   Cosmos: 3dfb6e4ba48bd48b8c9aa2a77048ae11ed114f96
@@ -36,7 +39,8 @@ SPEC CHECKSUMS:
   RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   TagListView: 987b0bdbb16cd9d9e7c0e2ec32aff37ecba8b173
+  YoutubeDirectLinkExtractor: de7abd36c0e3bb120b9b372f36450fbf9b51c01e
 
-PODFILE CHECKSUM: 46a62893486305bed51e1c29d63b14cb3145f10d
+PODFILE CHECKSUM: 8c0d7c5b93e952ee15a498db28de41ff21d7c3f6
 
 COCOAPODS: 1.8.4

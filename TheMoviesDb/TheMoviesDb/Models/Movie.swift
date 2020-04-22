@@ -62,13 +62,6 @@ public struct MovieVideo: Codable {
     public let size: Int
     public let type: String
     
-    public var youtubeURL: URL? {
-        guard site == "YouTube" else {
-            return nil
-        }
-        return URL(string: "https://www.youtube.com/watch?v=\(key)")
-    }
-    
     public var backdropURL: URL {
         return URL(string: "https://img.youtube.com/vi/\(key)/hqdefault.jpg")!
     }

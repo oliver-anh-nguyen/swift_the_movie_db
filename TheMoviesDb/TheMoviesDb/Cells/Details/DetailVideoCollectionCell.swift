@@ -9,10 +9,12 @@
 import Foundation
 import UIKit
 import AVKit
+import YoutubeDirectLinkExtractor
 
 class DetailVideoCollectionCell: BaseCollectionCell {
     
     var arrVideos = [MovieVideo]()
+    private let extractor = LinkExtractor()
     
     override func sizeCollection() -> CGSize {
         return size_detail_video
@@ -42,12 +44,14 @@ extension DetailVideoCollectionCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let movie = self.arrVideos[indexPath.row]
-        let player = AVPlayer(url: movie.youtubeURL!)
-        let vc = AVPlayerViewController()
-        vc.player = player
-        UINavigationController.currentActiveNavigationController()?.topViewController?.present(vc, animated: true, completion: {
-            vc.player?.play()
-        })
+        extractor.getUrlFromKey(key: movie.key) {(url) in
+            let player = AVPlayer(url: url)
+            let vc = AVPlayerViewController()
+            vc.player = player
+            UINavigationController.currentActiveNavigationController()?.topViewController?.present(vc, animated: true, completion: {
+                vc.player?.play()
+            })
+        }
     }
     
 }
