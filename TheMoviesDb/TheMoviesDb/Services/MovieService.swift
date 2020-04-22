@@ -11,6 +11,7 @@ import Foundation
 protocol MovieService {
     
     func fetchMovies(from endpoint: Endpoint,
+                     page: Int,
                      params: [String: String]?,
                      successHandler: @escaping (_ response: MoviesResponse) -> Void,
                      errorHandler: @escaping(_ error: Error) -> Void)
@@ -25,11 +26,20 @@ protocol MovieService {
 }
 
 
-public enum Endpoint: String, CaseIterable {
+public enum Endpoint: String, CaseIterable, CustomStringConvertible {
     case nowPlaying = "now_playing"
     case upcoming = "upcoming"
     case popular = "popular"
     case topRated = "top_rated"
+    
+    public var description: String {
+        switch self {
+        case .nowPlaying: return "Recommendations"
+        case .upcoming: return "Upcoming"
+        case .popular: return "Popular"
+        case .topRated: return "Top Rated"
+        }
+    }
     
     public init?(index: Int) {
         switch index {

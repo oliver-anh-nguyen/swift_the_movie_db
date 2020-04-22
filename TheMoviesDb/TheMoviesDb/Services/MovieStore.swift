@@ -26,7 +26,11 @@ public class MovieStore: MovieService {
     }()
     
     
-    public func fetchMovies(from endpoint: Endpoint, params: [String: String]? = nil, successHandler: @escaping (_ response: MoviesResponse) -> Void, errorHandler: @escaping(_ error: Error) -> Void) {
+    public func fetchMovies(from endpoint: Endpoint,
+                            page: Int,
+                            params: [String: String]? = nil,
+                            successHandler: @escaping (_ response: MoviesResponse) -> Void,
+                            errorHandler: @escaping(_ error: Error) -> Void) {
         
         guard var urlComponents = URLComponents(string: "\(baseAPIURL)/movie/\(endpoint.rawValue)") else {
             errorHandler(MovieError.invalidEndpoint)
@@ -34,6 +38,7 @@ public class MovieStore: MovieService {
         }
         
         var queryItems = [URLQueryItem(name: "api_key", value: apiKey)]
+        queryItems.append(URLQueryItem(name: "page", value: "\(page)"))
         if let params = params {
             queryItems.append(contentsOf: params.map { URLQueryItem(name: $0.key, value: $0.value) })
         }

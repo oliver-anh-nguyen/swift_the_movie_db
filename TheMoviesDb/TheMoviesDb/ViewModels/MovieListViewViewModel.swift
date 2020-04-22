@@ -17,12 +17,15 @@ class MovieListViewViewModel {
     
     init(endpoint: Endpoint, movieService: MovieService) {
         self.movieService = movieService
+        self._endPoint.accept(endpoint)
         self.fetchMovies(endpoint: endpoint)
     }
     
     private let _movies = BehaviorRelay<[Movie]>(value: [])
     private let _isFetching = BehaviorRelay<Bool>(value: false)
     private let _error = BehaviorRelay<String?>(value: nil)
+    private let _page = BehaviorRelay<Int>(value: 1)
+    private let _endPoint = BehaviorRelay<Endpoint>(value: .nowPlaying)
     
     var isFetching: Driver<Bool> {
         return _isFetching.asDriver()
@@ -30,6 +33,10 @@ class MovieListViewViewModel {
     
     var movies: Driver<[Movie]> {
         return _movies.asDriver()
+    }
+    
+    var page: Driver<Int> {
+        return _page.asDriver()
     }
     
     var error: Driver<String?> {
@@ -52,13 +59,12 @@ class MovieListViewViewModel {
     }
     
     private func fetchMovies(endpoint: Endpoint) {
-        self._movies.accept([])
         self._isFetching.accept(true)
         self._error.accept(nil)
         
-        movieService.fetchMovies(from: endpoint, params: nil, successHandler: {[weak self] (response) in
+        movieService.fetchMovies(from: endpoint, page: self._page.value, params: nil, successHandler: {[weak self] (response) in
             self?._isFetching.accept(false)
-            self?._movies.accept(response.results)
+            self?._movies.acceptAppending(response.results)
             
         }) { [weak self] (error) in
             self?._isFetching.accept(false)
@@ -66,5 +72,21 @@ class MovieListViewViewModel {
         }
     }
     
+    public func loadNextPage() {
+        self._page.accept(self._page.value+1)
+        self.fetchMovies(endpoint: self._endPoint.value)
+    }
+    
+    public func refreshListMovies() {
+        self._page.accept(1)
+        self._movies.accept([])
+        self.fetchMovies(endpoint: self._endPoint.value)
+    }
+    
 }
 
+extension BehaviorRelay where Element: RangeReplaceableCollection {
+    func acceptAppending(_ element: [Element.Element]) {
+        accept(value + element)
+    }
+}

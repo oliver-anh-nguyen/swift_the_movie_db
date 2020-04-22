@@ -22,6 +22,7 @@ class DetailHeaderSection: UICollectionReusableView {
     var viewModel: MovieViewViewModel!
     weak var delegate:DetailHeaderSectionDelegate?
     var expandingState = false
+    let defaultHeightDescription : CGFloat = 120.0
 
     private lazy var imgBgTop: UIImageView = {
         let img = UIImageView()
@@ -259,6 +260,16 @@ class DetailHeaderSection: UICollectionReusableView {
         self.lblTime.text = viewModel.releaseDate
         self.lblRating.text = "\(viewModel.rating)"
         self.cosmosView.rating = viewModel.rating
+        
+        self.btnMore.isHidden = !showReadMoreButton()
+    }
+    
+    func showReadMoreButton() -> Bool {
+        let heightDesc = self.desc.text!.height(withConstrainedWidth: UIScreen.main.bounds.size.width - marginLeft * 2, font: self.desc.font);
+        if heightDesc > self.defaultHeightDescription {
+            return true
+        }
+        return false
     }
     
     func addGenre(arr:[MovieGenre]) {

@@ -7,8 +7,7 @@
 //
 
 import UIKit
-let loadingViewColor = UIColor(red: 0.3058823529, green: 0.8666666667, blue: 0.7843137255, alpha: 1)
-let pullRefreshColor = UIColor(red: 0.2235294118, green: 0.262745098, blue: 0.3490196078, alpha: 1)
+
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -34,18 +33,6 @@ class HomeViewController: UIViewController {
         
         // add search button to right navigation bar
         self.createRightBarButton()
-        
-        self.setupPullToRefresh()
-    }
-    
-    func setupPullToRefresh() {
-        let loadingView = DGElasticPullToRefreshLoadingViewCircle()
-        loadingView.tintColor = loadingViewColor
-        self.collectionView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
-            self?.collectionView.dg_stopLoading()
-            }, loadingView: loadingView)
-        self.collectionView.dg_setPullToRefreshFillColor(pullRefreshColor)
-        self.collectionView.dg_setPullToRefreshBackgroundColor(self.collectionView.backgroundColor!)
     }
     
     private func customNavigationBar() {
@@ -162,7 +149,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 headerView.title.font = UIFont(name: font_helvetica_bold, size: 20)
                 headerView.title.text = str_home_section_recommend
                 headerView.moreButton = {
-                    print("see full recommendation list")
+                    let listView = ListMoviesViewController(endPoint: .nowPlaying)
+                    UINavigationController.currentActiveNavigationController()?.pushViewController(listView, animated: true)
                 }
             }
             else if indexPath.section == HomeSection.category {
@@ -170,12 +158,24 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             }
             else if indexPath.section == HomeSection.popular {
                 headerView.title.text = str_home_section_popular
+                headerView.moreButton = {
+                    let listView = ListMoviesViewController(endPoint: .popular)
+                    UINavigationController.currentActiveNavigationController()?.pushViewController(listView, animated: true)
+                }
             }
             else if indexPath.section == HomeSection.toprated {
                 headerView.title.text = str_home_section_toprated
+                headerView.moreButton = {
+                    let listView = ListMoviesViewController(endPoint: .topRated)
+                    UINavigationController.currentActiveNavigationController()?.pushViewController(listView, animated: true)
+                }
             }
             else if indexPath.section == HomeSection.upcoming {
                 headerView.title.text = str_home_section_upcoming
+                headerView.moreButton = {
+                    let listView = ListMoviesViewController(endPoint: .upcoming)
+                    UINavigationController.currentActiveNavigationController()?.pushViewController(listView, animated: true)
+                }
             }
             return headerView
         default:

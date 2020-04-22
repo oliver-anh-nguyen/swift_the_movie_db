@@ -19,6 +19,8 @@
 		3EEA27E32448AE120030B10C /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEA27E22448AE120030B10C /* UIButton+Extension.swift */; };
 		5CC4373DC5F6619D5C6255C5 /* Pods_TheMoviesDbTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D16FC5EF060F831AD23629C0 /* Pods_TheMoviesDbTests.framework */; };
 		8428012D244DB310005F580A /* MovieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428012C244DB310005F580A /* MovieDetailViewModel.swift */; };
+		8436AEFA244FE859003585ED /* ListMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436AEF9244FE859003585ED /* ListMoviesViewController.swift */; };
+		8436AEFD244FEA3E003585ED /* ListMoviesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436AEFC244FEA3E003585ED /* ListMoviesTableViewCell.swift */; };
 		845C73E024483E8B00CDAB62 /* ImageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C73DF24483E8B00CDAB62 /* ImageName.swift */; };
 		845EFB9C244AF21F0010AF55 /* DetailVideoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845EFB9B244AF21F0010AF55 /* DetailVideoCollectionCell.swift */; };
 		845EFB9E244AF2570010AF55 /* DetailRecomendCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845EFB9D244AF2560010AF55 /* DetailRecomendCollectionCell.swift */; };
@@ -95,6 +97,8 @@
 		7B5B8DD7D249EE3A7F959F71 /* Pods_TheMoviesDb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheMoviesDb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B5DB13F1F35294CBE566670 /* Pods-TheMoviesDb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMoviesDb.release.xcconfig"; path = "Target Support Files/Pods-TheMoviesDb/Pods-TheMoviesDb.release.xcconfig"; sourceTree = "<group>"; };
 		8428012C244DB310005F580A /* MovieDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModel.swift; sourceTree = "<group>"; };
+		8436AEF9244FE859003585ED /* ListMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMoviesViewController.swift; sourceTree = "<group>"; };
+		8436AEFC244FEA3E003585ED /* ListMoviesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMoviesTableViewCell.swift; sourceTree = "<group>"; };
 		845C73DF24483E8B00CDAB62 /* ImageName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageName.swift; sourceTree = "<group>"; };
 		845EFB9B244AF21F0010AF55 /* DetailVideoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVideoCollectionCell.swift; sourceTree = "<group>"; };
 		845EFB9D244AF2560010AF55 /* DetailRecomendCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecomendCollectionCell.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 			children = (
 				3EEA27DA2448AB810030B10C /* HomeViewController.swift */,
 				8481F7E524496FE0001D9389 /* DetailViewController.swift */,
+				8436AEF9244FE859003585ED /* ListMoviesViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -219,6 +224,15 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		8436AEFB244FEA28003585ED /* Lists */ = {
+			isa = PBXGroup;
+			children = (
+				8436AEFC244FEA3E003585ED /* ListMoviesTableViewCell.swift */,
+			);
+			name = Lists;
+			path = TheMoviesDb/Cells/Lists;
+			sourceTree = SOURCE_ROOT;
+		};
 		845C73E12448457E00CDAB62 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +240,7 @@
 				84ED4DA42449B75B00ACA2FD /* Details */,
 				84ED4D982449B75A00ACA2FD /* Homes */,
 				84ED4DA12449B75B00ACA2FD /* Sections */,
+				8436AEFB244FEA28003585ED /* Lists */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -239,8 +254,8 @@
 				845C73DF24483E8B00CDAB62 /* ImageName.swift */,
 				84601401244870FF0085583A /* UICollectionView+Extension.swift */,
 				3EEA27E22448AE120030B10C /* UIButton+Extension.swift */,
-				8481F7E924498AE4001D9389 /* UINavigationController+Extension.swift */,
 				8481F7E3244957F8001D9389 /* UIImageView+Extension.swift */,
+				8481F7E924498AE4001D9389 /* UINavigationController+Extension.swift */,
 				84652D8F244D60A0001CF080 /* UIView+Extension.swift */,
 			);
 			path = Commons;
@@ -667,6 +682,7 @@
 				84ED4DAD2449B75B00ACA2FD /* HomeHeaderSection.swift in Sources */,
 				3EEA27E02448AB960030B10C /* SceneDelegate.swift in Sources */,
 				84652D92244D8244001CF080 /* GenreViewModel.swift in Sources */,
+				8436AEFD244FEA3E003585ED /* ListMoviesTableViewCell.swift in Sources */,
 				84ED4DA62449B75B00ACA2FD /* HomeCategoryCollectionCell.swift in Sources */,
 				3EEA27E32448AE120030B10C /* UIButton+Extension.swift in Sources */,
 				84A7688B244AB0A100241A73 /* DetailSeriesCastViewCell.swift in Sources */,
@@ -690,6 +706,7 @@
 				3ED3AA6A244CB9570044C3D2 /* HomeTopRatedCollectionCell.swift in Sources */,
 				84F63CA0244C44A40017A840 /* MovieStore.swift in Sources */,
 				84ED4D932449946E00ACA2FD /* Utils.swift in Sources */,
+				8436AEFA244FE859003585ED /* ListMoviesViewController.swift in Sources */,
 				84652D94244D8291001CF080 /* GenreListViewViewModel.swift in Sources */,
 				84ED4DAB2449B75B00ACA2FD /* HomeFilmViewCell.swift in Sources */,
 				8476982B244EEE0100878321 /* DGElasticPullToRefreshLoadingView.swift in Sources */,
@@ -872,12 +889,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CJV82ADY94;
 				INFOPLIST_FILE = "TheMoviesDb/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = anhnt.com.movies.TheMoviesDb;
+				PRODUCT_BUNDLE_IDENTIFIER = awesome.guys.themovie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -890,12 +908,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CJV82ADY94;
 				INFOPLIST_FILE = "TheMoviesDb/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = anhnt.com.movies.TheMoviesDb;
+				PRODUCT_BUNDLE_IDENTIFIER = awesome.guys.themovie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
